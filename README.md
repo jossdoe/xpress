@@ -1,5 +1,7 @@
 ## About Xpress
 
+![Xpress Screenshot](http://cdn.gitpush.it/xpress1.png)
+
 I developed Xpress to keep track of the workflow in a digital newsroom that controls the sites and social media profiles of several daily newspapers. We were often faced with the problem of severe multitasking, handling several different sources of articles that needed to be distributed to several different channels. At the core of our work we needed to keep track of three things:
 
 - Articles that needed to be placed on the frontpages of our sites throughout the day
