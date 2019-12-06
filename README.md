@@ -4,9 +4,9 @@
 
 I developed Xpress to keep track of the workflow in a digital newsroom that controls the sites and social media profiles of several daily newspapers. We were often faced with the problem of severe multitasking, handling several different sources of articles that needed to be distributed to several different channels. At the core of our work we needed to keep track of three things:
 
-- Articles that needed to be placed on the frontpages of our sites throughout the day
-- Articles that needed to be posted through social media channels
-- So-called 'Turbos' that were articles that needed special attention to detail (e.g. very popular topics, special importance)
+- :newspaper: Articles that needed to be placed on the frontpages of our sites throughout the day
+- :thumbsup: Articles that needed to be posted through social media channels
+- :fire: So-called 'Turbos' that were articles that needed special attention to detail (e.g. very popular topics, special importance)
 
 Keeping track of these tasks can quickly get out of hand if you don't develop some kind of system to stay on top of multi-tasking. This is where Xpress entered the picture.
 
@@ -149,7 +149,7 @@ export default {
 };
 ```
 
-- If you don't use scraping, you're done! :)
+- If you don't use scraping, you're done! :tada:
 
 ### Setting up scraping
 
