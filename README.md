@@ -14,7 +14,7 @@ Keeping track of these tasks can quickly get out of hand if you don't develop so
 
 Each of the three central tasks mentioned above has its own view in the App. Each view consists of lists for each newspaper that needs to be managed. The 'Turbos' view provides more details that might be necessary for a quick and robust workflow. The views for 'Frontpages' and 'Social' are kept simple, only displaying the info that's most necessary: The topic, the URL & whether or not the article has been checked off. You can clear lists via the settings panel that can be expanded in the top right corner. In there you can also toggle visibility for specific lists on a per-user basis.
 
-The side-bar on the left side serves as a way to let data flow into the App. You can enter Turbos and links through two forms. You can also set up one or several scrapers, list-specific or not. Once set up, scraped articles can be imported with just a click into the App.
+The side-bar on the left side serves as a way to let data flow into the App. You can enter Turbos and links through two forms. You can also set up one or several scrapers to automatically give you updates on content that gets published by your sources, list-specific or not. Once set up, scraped articles can be imported with just a click into the App.
 
 ## Installation
 
