@@ -153,7 +153,7 @@ export default {
 
 ### Setting up scraping
 
-The backend-code for scraping is not included in this project, since I don't want to expose sensitive data specific to my work place. I might write an open-source version at some point. However, any simple node server with puppeteer will do! The tinkering part is transforming the output data into something that fits the data structure of Xpress, or the other way around. It should be fairly simple to figure out by reading through the `context/ScraperContext.js`-file and editing it to your liking.
+The backend-code for scraping is not included in this project, since I don't want to expose sensitive data specific to my work place. I might write an open-source version at some point. However, any simple node server with puppeteer will do! The tinkering part is transforming the output data into something that fits the data structure of Xpress, or the other way around. It should be fairly simple to figure out by reading through the `src/context/ScraperContext.js`-file and editing it to your liking.
 
 ## Backlog
 
