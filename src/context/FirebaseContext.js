@@ -13,8 +13,13 @@ const FirebaseContextProvider = (props) => {
   const [socialEntries, setSocialEntries] = useState([]);
   const [frontpagesEntries, setFrontpagesEntries] = useState([]);
   const [turbosEntries, setTurbosEntries] = useState([]);
+  const [loginIsInvalid, setLoginIsInvalid] = useState(false);
+  const [loginIsLoading, setLoginIsLoading] = useState(false);
 
   function logIn(email, password) {
+    setLoginIsLoading(true);
+    setLoginIsInvalid(false);
+
     firebase
       .auth()
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -24,9 +29,12 @@ const FirebaseContextProvider = (props) => {
           .signInWithEmailAndPassword(email, password)
           .then((res) => {
             if (res.user) setIsLoggedIn(true);
+            setLoginIsLoading(false);
           })
           .catch((e) => {
-            console.log(e.message);
+            setIsLoggedIn(false);
+            setLoginIsInvalid(true);
+            setLoginIsLoading(false);
           });
       });
   }
@@ -175,6 +183,8 @@ const FirebaseContextProvider = (props) => {
       value={{
         isLoggedIn,
         setIsLoggedIn,
+        loginIsInvalid,
+        loginIsLoading,
         logOut,
         logIn,
         socialEntries,

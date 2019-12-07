@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { FirebaseContext } from 'context';
-import { Wrapper, Form } from './Login.styled';
+import { Wrapper, Form, ErrorNotice, Spinner } from './Login.styled';
 
 const Login = () => {
-  const { logIn } = useContext(FirebaseContext);
+  const { logIn, loginIsInvalid, loginIsLoading } = useContext(FirebaseContext);
   const [inputUser, setInputUser] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
@@ -29,7 +29,33 @@ const Login = () => {
           onChange={(e) => setInputPassword(e.target.value)}
         />
       </Form>
-      <button onClick={() => logIn(inputUser, inputPassword)}>Anmelden</button>
+      {loginIsInvalid && (
+        <ErrorNotice>
+          <div>
+            <i className="fas fa-exclamation-triangle" /> Login failed
+          </div>
+        </ErrorNotice>
+      )}
+      {loginIsLoading ? (
+        <Spinner>
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </Spinner>
+      ) : (
+        <button onClick={() => logIn(inputUser, inputPassword)}>
+          Anmelden
+        </button>
+      )}
     </Wrapper>
   );
 };
