@@ -1,10 +1,12 @@
 ## About Xpress
 
+![Xpress Screenshot](http://cdn.gitpush.it/xpress1.png)
+
 I developed Xpress to keep track of the workflow in a digital newsroom that controls the sites and social media profiles of several daily newspapers. We were often faced with the problem of severe multitasking, handling several different sources of articles that needed to be distributed to several different channels. At the core of our work we needed to keep track of three things:
 
-- Articles that needed to be placed on the frontpages of our sites throughout the day
-- Articles that needed to be posted through social media channels
-- So-called 'Turbos' that were articles that needed special attention to detail (e.g. very popular topics, special importance)
+- :newspaper: Articles that needed to be placed on the frontpages of our sites throughout the day
+- :thumbsup: Articles that needed to be posted through social media channels
+- :fire: So-called 'Turbos' that were articles that needed special attention to detail (e.g. very popular topics, special importance)
 
 Keeping track of these tasks can quickly get out of hand if you don't develop some kind of system to stay on top of multi-tasking. This is where Xpress entered the picture.
 
@@ -12,7 +14,7 @@ Keeping track of these tasks can quickly get out of hand if you don't develop so
 
 Each of the three central tasks mentioned above has its own view in the App. Each view consists of lists for each newspaper that needs to be managed. The 'Turbos' view provides more details that might be necessary for a quick and robust workflow. The views for 'Frontpages' and 'Social' are kept simple, only displaying the info that's most necessary: The topic, the URL & whether or not the article has been checked off. You can clear lists via the settings panel that can be expanded in the top right corner. In there you can also toggle visibility for specific lists on a per-user basis.
 
-The side-bar on the left side serves as a way to let data flow into the App. You can enter Turbos and links through two forms. You can also set up one or several scrapers, list-specific or not. Once set up, scraped articles can be imported with just a click into the App.
+The side-bar on the left side serves as a way to let data flow into the App. You can enter Turbos and links through two forms. You can also set up one or several scrapers to automatically give you updates on content that gets published by your sources, list-specific or not. Once set up, scraped articles can be imported with just a click into the App.
 
 ## Installation
 
@@ -147,11 +149,11 @@ export default {
 };
 ```
 
-- If you don't use scraping, you're done! :)
+- If you don't use scraping, you're done! :tada:
 
 ### Setting up scraping
 
-The backend-code for scraping is not included in this project, since I don't want to expose sensitive data specific to my work place. I might write an open-source version at some point. However, any simple node server with puppeteer will do! The tinkering part is transforming the output data into something that fits the data structure of Xpress, or tht other way around. It should be fairly simple to figure out by reading through the `context/ScraperContext.js`-file and editing it to your liking.
+The backend-code for scraping is not included in this project, since I don't want to expose sensitive data specific to my work place. I might write an open-source version at some point. However, any simple node server with puppeteer will do! The tinkering part is transforming the output data into something that fits the data structure of Xpress, or the other way around. It should be fairly simple to figure out by reading through the `src/context/ScraperContext.js`-file and editing it to your liking.
 
 ## Backlog
 
