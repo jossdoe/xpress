@@ -10,15 +10,17 @@ export const Item = styled.li`
 `;
 
 export const Headline = styled.div`
-  font-weight: bold;
+  font-weight: 600;
 `;
 
 export const Topic = styled.div`
   font-size: 0.9rem;
+  opacity: 0.7;
 `;
 
 export const Location = styled.div`
   font-size: 0.9rem;
+  opacity: 0.7;
 `;
 
 export const Button = styled.div`

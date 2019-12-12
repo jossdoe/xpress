@@ -5,10 +5,11 @@ export const Item = styled.li`
   border-radius: 5px;
   display: flex;
   margin-bottom: 5px;
+  opacity: ${(props) => (props.isPosted ? '0.4' : '1')};
 `;
 
 export const ActionButton = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding: 7px 9px;
   cursor: pointer;
 `;

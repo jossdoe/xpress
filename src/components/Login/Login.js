@@ -52,9 +52,7 @@ const Login = () => {
           <div />
         </Spinner>
       ) : (
-        <button onClick={() => logIn(inputUser, inputPassword)}>
-          Anmelden
-        </button>
+        <button onClick={() => logIn(inputUser, inputPassword)}>Sign In</button>
       )}
     </Wrapper>
   );

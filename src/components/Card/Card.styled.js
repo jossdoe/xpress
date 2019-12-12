@@ -18,7 +18,7 @@ export const CardComponent = styled.section`
   header {
     border-bottom: solid 1px #eee;
     color: #ff4136;
-    font-weight: bold;
+    font-weight: 600;
     margin: 20px 20px 0;
     padding-bottom: 20px;
   }

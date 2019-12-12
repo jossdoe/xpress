@@ -31,7 +31,7 @@ export const Location = styled.div`
 
 export const Kicker = styled.div`
   font-size: 0.8rem;
-  font-weight: bold;
+  font-weight: 600;
   margin-top: 7px;
 `;
 

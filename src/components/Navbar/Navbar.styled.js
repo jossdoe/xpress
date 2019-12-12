@@ -30,7 +30,7 @@ export const Item = styled.li`
   background-color: ${(props) => (props.active ? '#ff4136' : 'inherit')};
   color: ${(props) => (props.active ? '#fdfdfd' : '#999999')};
   display: inline-block;
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: 0.04rem;
   padding: 0 20px;
   text-transform: uppercase;
@@ -52,7 +52,7 @@ export const Actions = styled.div`
     color: #fdfdfd;
     cursor: pointer;
     font-size: 0.7rem;
-    font-weight: bold;
+    font-weight: 600;
     padding: 10px;
     margin-left: 7px;
     text-transform: uppercase;
@@ -81,8 +81,9 @@ export const SubHeader = styled.div`
         border: solid 2px #666;
         border-radius: 3px;
         color: #666;
-        font-family: Roboto, sans-serif;
-        font-weight: bold;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 600;
         margin-left: 15px;
         padding: 2px 10px;
       }
@@ -94,7 +95,7 @@ export const SubHeader = styled.div`
         color: #ccc;
         cursor: pointer;
         font-size: 0.7rem;
-        font-weight: bold;
+        font-weight: 600;
         padding: 8px 10px;
         margin: 0 10px;
         text-transform: uppercase;
@@ -116,8 +117,10 @@ export const VisibilitySwitch = styled.button`
   border-radius: 6px;
   color: ${(props) => (props.active ? '#ccc' : '#666')};
   cursor: pointer;
-  font-family: Roboto, sans-serif;
-  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
+  font-size: 0.6rem;
   margin-left: 15px;
   padding: 4px 9px;
 `;

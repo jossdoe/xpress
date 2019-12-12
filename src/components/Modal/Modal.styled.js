@@ -38,7 +38,8 @@ export const FieldSection = styled.div`
     border-radius: 3px;
     box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
     display: block;
-    font-family: Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 35px;
     line-height: 35px;
     margin-bottom: 10px;
@@ -96,7 +97,7 @@ export const RadioSection = styled.div`
   color: #777;
   display: flex;
   font-size: 0.7rem;
-  font-weight: bold;
+  font-weight: 600;
   height: 35px;
   line-height: 35px;
   margin-bottom: 30px;
@@ -133,6 +134,7 @@ export const CheckboxSection = styled.div`
     font-size: 0.8rem;
     margin-bottom: 15px;
     text-transform: uppercase;
+    font-weight: 600;
   }
 
   label {
@@ -142,8 +144,8 @@ export const CheckboxSection = styled.div`
     color: #aaa;
     cursor: pointer;
     display: inline-block;
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-size: 0.7rem;
+    font-weight: 400;
     height: 44px;
     line-height: 40px;
     margin-right: 5px;
@@ -175,9 +177,10 @@ export const SubmitSection = styled.div`
     border-radius: 3px;
     box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
     cursor: pointer;
-    font-family: Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 0.8rem;
-    font-weight: bold;
+    font-weight: 600;
     height: 45px;
     line-height: 39px;
     margin: 0 10px;

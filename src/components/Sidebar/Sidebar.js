@@ -6,7 +6,7 @@ import { MetaContext } from 'context';
 const Sidebar = () => {
   const { settings } = useContext(MetaContext);
   const [isExpanded, setIsExpanded] = useState(true);
-  const [activeView, setActiveView] = useState('addLink');
+  const [activeView, setActiveView] = useState('scraper');
 
   return (
     <NavLeft isExpanded={isExpanded}>

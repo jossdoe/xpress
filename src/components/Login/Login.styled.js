@@ -24,11 +24,11 @@ export const Wrapper = styled.div`
       }
 
       span {
-        color: #999;
+        color: #aaa;
         display: inline-block;
         font-family: 'Merriweather', serif;
         font-size: 1.1rem;
-        font-weight: bold;
+        font-weight: 600;
         margin-top: 18px;
       }
     }
@@ -41,8 +41,9 @@ export const Wrapper = styled.div`
     box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
     color: #fdfdfd;
     cursor: pointer;
-    font-family: Roboto, sans-serif;
-    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
     height: 45px;
     margin-top: 35px;
     width: 100%;
@@ -60,7 +61,8 @@ export const Form = styled.div`
     border: none;
     box-shadow: inset 1px 2px 3px #0000000a, inset 1px 2px 9px #0000000a;
     color: #777;
-    font-family: Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 45px;
     margin: 0;
     padding: 0 10px;

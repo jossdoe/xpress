@@ -6,7 +6,7 @@ const CardItem = (props) => {
   const { setIsPosted } = useContext(FirebaseContext);
 
   return (
-    <Item>
+    <Item isPosted={props.item.isPosted}>
       <ActionButton
         onClick={() => setIsPosted(props.item.id, !props.item.isPosted)}
       >
