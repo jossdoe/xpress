@@ -157,6 +157,7 @@ The backend-code for scraping is not included in this project, since I don't wan
 
 ## Backlog
 
+- Transitioning to TypeScript
 - Toasts
 - Hover-styles and animations
 - Adding dark mode
