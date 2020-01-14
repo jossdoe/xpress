@@ -1,9 +1,18 @@
+// This Context handles all the data that is used by the different
+// modal views. Since we have several components that need to be
+// able to produce and consume a modal, we provide all the data flow
+// through this global context, including form states.
+
 import React, { useState, createContext } from 'react';
 
 export const ModalContext = createContext();
 
 const ModalContextProvider = (props) => {
   const [isVisible, setIsVisible] = useState(false);
+  
+  // 'modalType' can either be 'entry' or 'turbo' depending on the
+  // content the user wants to edit. This directly controls the architecture
+  // of the component in 'components/Modal/Modal.js'.
   const [modalType, setModalType] = useState('entry');
 
   // States for Form Data in Modal
@@ -18,6 +27,8 @@ const ModalContextProvider = (props) => {
   const [switchValue, setSwitchValue] = useState('social');
   const [listArray, setListArray] = useState([]);
 
+  // Bundling the form states together for easier export to and
+  // consumption in the component.
   const formData = {
     firebaseId,
     setFirebaseId,
@@ -59,6 +70,9 @@ const ModalContextProvider = (props) => {
     resetModalFields();
   };
 
+  // These two functions trigger the rendering of a Modal and
+  // set its initial form data as well as the type of view that
+  // needs to be rendered.
   const showAddEntryModal = (data) => {
     resetModalFields();
 
@@ -66,6 +80,8 @@ const ModalContextProvider = (props) => {
       setTitleValue(data.kicker + ': ' + data.headline);
       setUrlValue(data.url);
 
+      // If we add an entry from a local scraper, we want to pre-select
+      // the corresponding list as the target list.
       if (data.metaData.type === 'local') {
         let newArray = [...listArray];
         newArray.push(data.metaData.title);

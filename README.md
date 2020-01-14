@@ -16,6 +16,10 @@ Each of the three central tasks mentioned above has its own view in the App. Eac
 
 The side-bar on the left side serves as a way to let data flow into the App. You can enter Turbos and links through two forms. You can also set up one or several scrapers to automatically give you updates on content that gets published by your sources, list-specific or not. Once set up, scraped articles can be imported with just a click into the App.
 
+### Reading the code
+
+If you want to go ahead and dive into the code of Xpress, I would suggest starting by reading through the `config`-files below, then continuing with the files in the `context`-folder. At that point, you will understand the data-flow of the app, which is almost completely seperated from the components.
+
 ## Installation
 
 Xpress runs with React/CRA on the frontend and with Google Firebase as a backend (the Firestore, to be more precise), with optional scraping as another backend service. While the scraping part might need some tinkering to get set up, the rest is pretty straight forward.
@@ -162,8 +166,6 @@ The backend-code for scraping is not included in this project, since I don't wan
 - Hover-styles and animations
 - Adding dark mode
 - Edit mode for all lists (e.g. ability to edit & delete single links)
-- Comments, comments, comments
-- Testing
 - Transforming png-files to SVG
 - Support for longer list names (means: editing the forms, so it still shows the full name)
 - Persisting view state in local storage or session (e.g. visibility of lists)

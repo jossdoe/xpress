@@ -8,6 +8,8 @@ const Card = (props) => {
       <header>{props.listData.title}</header>
       <ul>
         {props.listData.entries.map((item) => {
+          // Card Items are designed the same way for 'Social' and 'Frontpages'.
+          // They're only different for 'Turbos'.
           if (props.itemType !== 'turbo')
             return <CardItem key={item.id} item={item} />;
           else return <Turbo key={item.id} item={item} />;

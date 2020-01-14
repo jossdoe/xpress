@@ -1,3 +1,6 @@
+// bundling exports to simplify imports across the app
+// this allows us to import everything from 'components'
+
 import App from './App';
 import AddLink from './AddLink/AddLink';
 import AddTurbo from './AddTurbo/AddTurbo';

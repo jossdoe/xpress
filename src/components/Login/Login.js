@@ -1,3 +1,6 @@
+// This component only consumes all the login-data. The actual
+// logic can be found inside 'context/FirebaseContext.js'.
+
 import React, { useContext, useState } from 'react';
 import { FirebaseContext } from 'context';
 import { Wrapper, Form, ErrorNotice, Spinner } from './Login.styled';

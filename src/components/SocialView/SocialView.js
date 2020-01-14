@@ -7,6 +7,9 @@ const SocialView = () => {
   const { lists, viewState } = useContext(MetaContext);
   const { socialEntries } = useContext(FirebaseContext);
 
+  // We're sorting through the list-metadata as well as the social entries
+  // and merge them into an array of lists, each with only the entries that
+  // belong in each list.
   const sortedData = [];
 
   lists.forEach((list) => {

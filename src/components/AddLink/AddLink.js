@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useRadioInput, useTextInput } from 'hooks';
 import { FirebaseContext, MetaContext } from 'context';
-
 import {
   Form,
   FieldSection,
@@ -26,6 +25,9 @@ const AddLink = () => {
     setListArray([]);
   };
 
+  // Since our database is built in a way where one item corresponds to
+  // one entry on a list, posting an item for two views at once  will have
+  // to work through actually posting two entries.
   const postForm = () => {
     if (switchValue === 'both') {
       listArray.forEach((item) => {

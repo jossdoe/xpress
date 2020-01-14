@@ -17,6 +17,9 @@ const ScraperItem = (props) => {
 
   let colors = defaultStyle;
 
+  // This is where the conditional styles come in, if you have them enabled.
+  // Compare this code to the structure of the scraperstyles.config.js to
+  // understand how the styling works.
   if (settings.enableScraperColors) {
     for (let style of styles) {
       if (style.checkElement === 'url' && url.includes(style.included)) {
@@ -32,6 +35,9 @@ const ScraperItem = (props) => {
     }
   }
 
+  // This is a little helper function to decode HTML characters that would
+  // otherwise not be displayed properly. We're basically creating a textarea
+  // without rendering it to the user, then using copy and paste.
   const decodeHtml = (html) => {
     var txt = document.createElement('textarea');
     txt.innerHTML = html;

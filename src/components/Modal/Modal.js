@@ -1,3 +1,16 @@
+// The Modal is a bit complex, so I've split it up into three components
+// that are all defined inside this file:
+//
+// ## Modal
+// ## TurboForm
+// ## EntryForm
+//
+// This is the main starting point that binds all parts together and
+// renders them to the DOM. Based on the 'modalType'-state that gets
+// imported from the ModalContext, we either render the TurboForm-
+// component or the EntryForm-component. Other than that, the code is
+// fairly straightforward.
+
 import React, { useContext } from 'react';
 import { FirebaseContext, ModalContext, MetaContext } from 'context';
 import { useCheckbox, useRadioInput, useTextInput } from 'hooks';
@@ -19,6 +32,10 @@ const Modal = () => {
   );
   if (!isVisible) return null;
 
+  // Submitting the modal needs to take three things into account:
+  // a) Which modalType-value is provided by the ModalContext? ('entry' or 'turbo')
+  // b) Do we submit entries to one view or two? (checking for 'both'-value)
+  // c) Do we submit entries to several lists or just one? (solved through forEach-method)
   const submitModal = () => {
     if (modalType === 'entry') {
       if (formData.switchValue === 'both') {
