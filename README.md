@@ -22,16 +22,18 @@ If you want to go ahead and dive into the code of Xpress, I would suggest starti
 
 ## Installation
 
-Xpress runs with React/CRA on the frontend and with Google Firebase as a backend (the Firestore, to be more precise), with optional scraping as another backend service. While the scraping part might need some tinkering to get set up, the rest is pretty straight forward.
+Xpress runs with React/CRA/TypeScript on the frontend and with Google Firebase as auth and database (the Firestore, to be more precise), with optional scraping which needs to be provided by a seperate backend. While the scraping part might need some tinkering to get set up, the rest is pretty straight forward.
 
 - Clone or download this repository and run `npm install`
 - Create a folder named `config` in the `src`-directory
-- Inside the `config`-folder, create three files named `general.config.js`, `firebase.config.js` and `scraperstyles.config.js` – populate them with the following code (and edit it according to the comments)
+- Inside the `config`-folder, create three files named `general.config.ts`, `firebase.config.ts` and `scraperstyles.config.ts` – populate them with the following code (and edit it according to the comments)
 
-### `general.config.js`
+### `general.config.ts`
 
 ```javascript
-export const settings = {
+import { ListSettings, LocalListType, GlobalListType } from 'types';
+
+export const settings: ListSettings = {
   // If you have a scraping backend that you want to use, switch this to 'true'
   enableScraper: false,
 
@@ -46,7 +48,7 @@ export const settings = {
 
 // This array defines which lists you have in the application, you can add objects using the same notation
 // Keep in mind that it was designed as one list per newspaper-site
-export const lists = [
+export const lists: Array<LocalListType> = [
   {
     // The title of the newspaper/list, keep it as short as possible - preferrably three letters
     title: 'XMP',
@@ -72,7 +74,7 @@ export const lists = [
 // Globals are scrapers that are not assigned to a specific list
 // You can add or remove entries as you like
 // If you don't use global scrapers, just keep it an empty array – don't remove it
-export const globals = [
+export const globals: Array<GlobalListType> = [
   {
     // The title of your scraper
     title: 'Politics',
@@ -91,14 +93,15 @@ export const globals = [
 ];
 ```
 
-### `scraperstyles.config.js`
+### `scraperstyles.config.ts`
 
 ```javascript
 // In this file, we define the styling of the scrapers
+import { DefaultStyleType, StyleType } from 'types';
 
 // This is the default style of scraper elements
 // Feel free to play around with colors, but don't remove it
-export const defaultStyle = {
+export const defaultStyle: DefaultStyleType = {
   borderLeft: '#3498db',
   categoryBackground: '#3498db',
   categoryFontColor: '#fdfdfd'
@@ -108,7 +111,7 @@ export const defaultStyle = {
 // You can check for specific strings and apply colors based on them
 // If you want the same style for different conditions, you will have to add another style for each condition
 // If you don't use conditional styles, just leave it an empty array - dont remove it
-export const styles = [
+export const styles: Array<StyleType> = [
   {
     // This defines whether the URL or the kicker is the element that gets checked for the condition
     checkElement: 'url',
@@ -136,9 +139,9 @@ On to setting up Firebase:
 - Create a new Firestore for Xpress.
 - Add a collection named 'links'
 - Create a user for Xpress, so you can log in
-- Lastly, populate `firebase.config.js` with your credentials in the following notation:
+- Lastly, populate `firebase.config.ts` with your credentials in the following way:
 
-### `firebase.config.js`
+### `firebase.config.ts`
 
 ```javascript
 // This is where your Firebase-credentials go, you get them inside of their dashboard
@@ -157,11 +160,10 @@ export default {
 
 ### Setting up scraping
 
-The backend-code for scraping is not included in this project, since I don't want to expose sensitive data specific to my work place. I might write an open-source version at some point. However, any simple node server with puppeteer will do! The tinkering part is transforming the output data into something that fits the data structure of Xpress, or the other way around. It should be fairly simple to figure out by reading through the `src/context/ScraperContext.js`-file and editing it to your liking.
+The backend-code for scraping is not included in this project, since I don't want to expose sensitive data specific to my work place. I might write an open-source version at some point. However, any simple node server with cheerio/puppeteer (or whatever language and technology you may want to use) will do! The important part is transforming the output data into something that fits the data structure of Xpress, or the other way around. You should be able to figure it out by reading through the `src/context/ScraperContext.tsx`-file and editing it to your liking.
 
 ## Backlog
 
-- Transitioning to TypeScript
 - Toasts
 - Hover-styles and animations
 - Adding dark mode
