@@ -19,6 +19,7 @@ export const CheckboxLabel = styled.label`
   user-select: none;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: all 0.2s;
 
   &:hover {
     background-color: #f7f7f7;

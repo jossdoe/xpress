@@ -11,7 +11,7 @@ const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
   const [activeView, setActiveView] = useState<
     'addTurbo' | 'addLink' | 'scraper'
-  >('scraper');
+  >('addTurbo');
 
   return (
     <NavLeft isExpanded={isExpanded}>

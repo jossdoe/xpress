@@ -46,7 +46,7 @@ const App = () => {
         {isLoggedIn && <Sidebar />}
         <Switch>
           <Route path="/" exact>
-            {isLoggedIn && <Redirect to="/social" />}
+            {isLoggedIn && <Redirect to="/turbos" />}
             {!isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route path="/turbos">
@@ -62,7 +62,7 @@ const App = () => {
             {isLoggedIn && <SocialView />}
           </Route>
           <Route path="/login">
-            {isLoggedIn && <Redirect to="/social" />}
+            {isLoggedIn && <Redirect to="/turbos" />}
             <Login />
           </Route>
           <Route>
