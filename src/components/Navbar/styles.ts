@@ -15,7 +15,7 @@ export const Logo = styled.header`
   text-align: left;
   width: 200px;
 
-  img {
+  .navbarlogo-svg {
     height: 100%;
   }
 `;
@@ -51,11 +51,10 @@ export const Actions = styled.div`
     border-radius: 3px;
     color: #fdfdfd;
     cursor: pointer;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: 600;
     padding: 10px;
     margin-left: 7px;
-    text-transform: uppercase;
   }
 `;
 

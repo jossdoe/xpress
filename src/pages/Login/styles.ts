@@ -1,99 +1,33 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: 500px;
-  margin: 50px auto;
-  width: 280px;
+  width: 250px;
+  text-align: center;
+  margin: 0 auto;
 
-  header {
-    height: 250px;
-    position: relative;
-
-    section {
-      left: 50%;
-      position: absolute;
-      text-align: center;
-      top: 50%;
-      transform: translate(-50%, -50%);
-
-      img {
-        border: solid 4px #fff;
-        border-radius: 50%;
-        box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
-        display: block;
-      }
-
-      span {
-        color: #aaa;
-        display: inline-block;
-        font-family: 'Merriweather', serif;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-top: 18px;
-      }
-    }
-  }
-
-  button {
-    background-color: #ff4136;
-    border: none;
-    border-radius: 6px;
+  .roundlogo-svg {
+    border: solid 4px #fff;
+    border-radius: 50%;
     box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
-    color: #fdfdfd;
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 600;
-    height: 45px;
-    margin-top: 35px;
-    width: 100%;
+    height: 120px;
   }
-`;
 
-export const Form = styled.div`
-  background-color: grey;
-  border: solid 1px #ccc;
-  border-radius: 6px;
-  box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
-  overflow: hidden;
-
-  input {
-    border: none;
-    box-shadow: inset 1px 2px 3px #0000000a, inset 1px 2px 9px #0000000a;
-    color: #777;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    height: 45px;
-    margin: 0;
-    padding: 0 10px;
-    text-align: center;
-    width: 100%;
-
-    :last-child {
-      border-top: solid 1px #ccc;
-    }
+  .appname-svg {
+    height: 20px;
   }
 `;
 
 export const ErrorNotice = styled.div`
-  text-align: center;
+  display: inline-block;
   user-select: none;
-
-  div {
-    background-color: #ff0000;
-    border-radius: 12px;
-    color: #fff;
-    height: 24px;
-    line-height: 24px;
-    display: inline-block;
-    font-size: 0.8rem;
-    margin-top: 10px;
-    padding: 0 10px;
-
-    i {
-      margin-right: 8px;
-    }
-  }
+  background-color: transparent;
+  border-radius: 12px;
+  border: solid 2px #ff4136;
+  color: #ff4136;
+  height: 24px;
+  line-height: 20px;
+  font-size: 0.8rem;
+  padding: 0 10px;
 `;
 
 export const Spinner = styled.div`

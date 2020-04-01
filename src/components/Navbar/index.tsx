@@ -11,6 +11,8 @@ import {
   SubHeader,
   VisibilitySwitch
 } from './styles';
+import { ReactComponent as NavbarLogoSVG } from 'assets/navbarlogo.svg';
+import { FiSettings, FiTrash2, FiX } from 'react-icons/fi';
 
 const Navbar = () => {
   const { lists, viewState } = useContext(MetaContext);
@@ -30,7 +32,7 @@ const Navbar = () => {
       <>
         <Header>
           <Logo>
-            <img src={process.env.PUBLIC_URL + '/redlogo.png'} alt="Xpress" />
+            <NavbarLogoSVG />
           </Logo>
           <Menu onClick={() => updateActiveRoute()}>
             <Link to="/turbos">
@@ -53,9 +55,9 @@ const Navbar = () => {
           </Menu>
           <Actions>
             <button onClick={() => setIsSubHeaderVisible(!isSubHeaderVisible)}>
-              <i className="fas fa-cog" />
+              <FiSettings />
             </button>
-            <button onClick={() => logOut()}>Log Out</button>
+            <button onClick={() => logOut()}>Sign Out</button>
           </Actions>
         </Header>
         <SubHeader visible={isSubHeaderVisible}>
@@ -93,10 +95,10 @@ const Navbar = () => {
             <button
               onClick={() => deleteList(valueDeleteMenu, valueDeleteMode)}
             >
-              <i className="fas fa-trash-alt" />
+              <FiTrash2 />
             </button>
             <span onClick={() => setIsSubHeaderVisible(false)}>
-              <i className="fas fa-times" />
+              <FiX />
             </span>
           </section>
         </SubHeader>

@@ -3,6 +3,7 @@ import { LinkDatabaseType } from 'types';
 import { FirebaseContext } from 'context/FirebaseContext';
 import { ModalContext } from 'context/ModalContext';
 import { Item, Headline, Topic, Location, Button, EditButton } from './styles';
+import { FiLink2, FiCircle, FiCheckCircle, FiEdit } from 'react-icons/fi';
 
 type PropsType = {
   item: LinkDatabaseType;
@@ -22,7 +23,9 @@ const Turbo: React.FC<PropsType> = props => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fas fa-link" />
+            <FiLink2
+              style={{ verticalAlign: 'text-bottom', marginLeft: '6px' }}
+            />
           </a>
         )}
       </Headline>
@@ -33,36 +36,24 @@ const Turbo: React.FC<PropsType> = props => {
         onClick={() => setIsReady(props.item.id, !props.item.isReady)}
       >
         {'Redacted '}
-        {props.item.isReady ? (
-          <i className="fas fa-check" />
-        ) : (
-          <i className="fas fa-times" />
-        )}
+        {props.item.isReady ? <FiCheckCircle /> : <FiCircle />}
       </Button>
       <Button
         done={props.item.isOnline}
         onClick={() => setIsOnline(props.item.id, !props.item.isOnline)}
       >
         {'Online '}
-        {props.item.isOnline ? (
-          <i className="fas fa-check" />
-        ) : (
-          <i className="fas fa-times" />
-        )}
+        {props.item.isOnline ? <FiCheckCircle /> : <FiCircle />}
       </Button>
       <Button
         done={props.item.isPosted}
         onClick={() => setIsPosted(props.item.id, !props.item.isPosted)}
       >
         {'Posted '}
-        {props.item.isPosted ? (
-          <i className="fas fa-check" />
-        ) : (
-          <i className="fas fa-times" />
-        )}
+        {props.item.isPosted ? <FiCheckCircle /> : <FiCircle />}
       </Button>
       <EditButton onClick={() => showEditTurboModal(props.item)}>
-        <i className="fas fa-pen-square" />
+        <FiEdit />
       </EditButton>
     </Item>
   );

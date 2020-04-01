@@ -1,0 +1,5 @@
+<svg className="navbarlogo-svg" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#E40600" d="M0 282h1024v318H0z"/>
+  <path fill="#FF0400" d="M0 0h1024v300H0z"/>
+  <path d="M850.795 600h346.415L1024 300 850.795 600zM850.795 0L1024 300 1197.21 0H850.795z" fill="#BC0700"/>
+</svg>

@@ -2,94 +2,93 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
-  padding: 20px 0 0;
+  padding: 20px 0 0 20px;
   position: relative;
 `;
 
-export const Title = styled.h2`
-  padding-left: 20px;
-  span {
-    background-color: #777;
-    border-radius: 3px;
-    color: #ccc;
-    cursor: pointer;
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 2px 5px;
+export const SourceButton = styled.div`
+  background-color: #fafafa;
+  color: #333;
+  box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 2px 5px;
+  height: 2rem;
+  line-height: 2rem;
+  width: 2rem;
+  font-size: 1.3rem;
+  text-align: center;
+
+  &:hover {
+    background-color: #f7f7f7;
+    box-shadow: 1px 2px 3px #0000001a, 1px 2px 9px #0000001a;
+  }
+
+  &:active {
+    box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
+    background-color: #f4f4f4;
   }
 `;
 
-export const Settings = styled.div`
-  background-color: #777;
+export const Settings = styled.div<{ isVisible: boolean }>`
+  background-color: #00000066;
   bottom: 0;
-  color: #eaeaea;
   left: 0;
   position: absolute;
   right: 0;
-  text-align: center;
   top: 0;
   z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  opacity: ${props => (props.isVisible ? '1' : '0')};
+  pointer-events: ${props => (props.isVisible ? 'auto' : 'none')};
 
-  button {
-    background-color: inherit;
-    border: none;
-    color: #fdfdfd;
-    font-size: 1.5rem;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-  }
+  ul {
+    display: inline-block;
+    font-size: 0.9rem;
+    list-style: none;
 
-  nav {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    li {
+      border-radius: 3px;
+      cursor: pointer;
 
-    h2 {
-      color: #fff;
-      margin-bottom: 7px;
-    }
-
-    h4 {
-      margin-bottom: 7px;
-    }
-
-    ul {
-      font-size: 0.9rem;
-      list-style: none;
-      margin-bottom: 20px;
-
-      li {
-        background-color: #888;
-        border-radius: 3px;
-        cursor: pointer;
-        padding: 2px 2px;
-        margin-bottom: 4px;
-
-        :hover {
-          background-color: #eaeaea;
-          color: #777;
-        }
+      :hover {
+        color: #777;
       }
     }
   }
 `;
 
+export const ExitSettingsButton = styled.div`
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #bbb;
+
+  &:hover {
+    color: #999;
+  }
+
+  &:active {
+    color: #777;
+  }
+`;
+
 export const List = styled.ul`
-  height: calc(100% - 60px);
+  height: calc(100% - 70px);
   list-style: none;
   overflow: auto;
-  padding: 10px 50px 20px 20px;
+  padding: 10px 40px 20px 20px;
 `;
 
 export const Spinner = styled.div`
   font-size: 64px;
-  margin: 100px auto;
   text-align: center;
   width: 32px;
+  height: 120px;
 
   span {
     position: relative;

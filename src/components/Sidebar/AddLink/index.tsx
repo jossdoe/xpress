@@ -2,15 +2,12 @@ import React, { useContext, useState } from 'react';
 import { LinkTypeFormTypes } from 'types';
 import { FirebaseContext } from 'context/FirebaseContext';
 import { MetaContext } from 'context/MetaContext';
-import useRadioInput from 'forms/useRadioInput';
-import useTextInput from 'forms/useTextInput';
-import {
-  Form,
-  FieldSection,
-  RadioSection,
-  CheckboxSection,
-  SubmitSection
-} from './styles';
+import Stack from 'components/layout/Stack';
+import InputLabel from 'components/forms/InputLabel';
+import TextInput from 'components/forms/TextInput';
+import LinkRadioGroup from 'components/forms/LinkRadioGroup';
+import CheckboxRow from 'components/forms/CheckboxRow';
+import SubmitButton from 'components/forms/SubmitButton';
 
 const AddLink = () => {
   const { postEntry } = useContext(FirebaseContext);
@@ -29,7 +26,7 @@ const AddLink = () => {
   };
 
   // Since our database is built in a way where one item corresponds to
-  // one entry on a list, posting an item for two views at once  will have
+  // one entry on a list, posting an item for two views at once will have
   // to work through actually posting two entries.
   const postForm = () => {
     if (switchValue === 'both') {
@@ -91,49 +88,62 @@ const AddLink = () => {
   };
 
   return (
-    <Form>
-      <FieldSection>
-        {useTextInput('title', 'Headline', titleValue, setTitleValue)}
-        {useTextInput('url', 'Link', urlValue, setUrlValue)}
-      </FieldSection>
-      <RadioSection>
-        {useRadioInput(
-          'switch',
-          'social',
-          'social',
-          switchValue,
-          setSwitchValue
-        )}
-        {useRadioInput('switch', 'front', 'front', switchValue, setSwitchValue)}
-        {useRadioInput('switch', 'both', 'both', switchValue, setSwitchValue)}
-      </RadioSection>
-      <CheckboxSection>
-        <h4>Lists</h4>
-        {lists.map((list, index: number) => {
-          return (
-            <React.Fragment key={index}>
-              <input
-                type="checkbox"
-                name="lists"
-                value={list.title}
-                id={list.title}
-                checked={listArray.includes(list.title)}
-                onChange={e => handleCheckboxToggle(e.target.value)}
-              />
-              <label htmlFor={list.title}>{list.title}</label>
-            </React.Fragment>
-          );
-        })}
-      </CheckboxSection>
-      <SubmitSection>
-        <button className="submit" onClick={() => postForm()}>
-          Submit
-        </button>
-        <button className="reset" onClick={() => resetForm()}>
-          Reset
-        </button>
-      </SubmitSection>
-    </Form>
+    <div style={{ padding: 20 }}>
+      <Stack space={4} marginBottom={20}>
+        <div>
+          <InputLabel>Headline</InputLabel>
+          <TextInput
+            variant="dark"
+            type="text"
+            name="title"
+            id="title"
+            value={titleValue}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setTitleValue(e.currentTarget.value)
+            }
+          />
+        </div>
+        <div>
+          <InputLabel>Link</InputLabel>
+          <TextInput
+            variant="dark"
+            type="text"
+            name="url"
+            id="url"
+            value={urlValue}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setUrlValue(e.currentTarget.value)
+            }
+          />
+        </div>
+      </Stack>
+      <Stack space={2} marginBottom={20}>
+        <InputLabel>Choose Context</InputLabel>
+        <LinkRadioGroup
+          groupName="switch"
+          choices={['social', 'front', 'both']}
+          switchValue={switchValue}
+          setSwitchValue={setSwitchValue}
+        />
+      </Stack>
+      <Stack space={2} marginBottom={40}>
+        <InputLabel>Choose Lists</InputLabel>
+        {lists.map((list, index) => (
+          <React.Fragment key={index}>
+            <CheckboxRow
+              labelText={list.title}
+              groupName="lists"
+              value={list.title}
+              checked={listArray.includes(list.title)}
+              changeHandler={handleCheckboxToggle}
+            />
+          </React.Fragment>
+        ))}
+      </Stack>
+      <Stack align="right">
+        <SubmitButton onClick={() => postForm()}>Save</SubmitButton>
+      </Stack>
+    </div>
   );
 };
 

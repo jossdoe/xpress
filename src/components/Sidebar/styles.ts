@@ -13,16 +13,14 @@ export const NavLeft = styled.aside<{ isExpanded: boolean }>`
 
 export const Header = styled.header<{ isExpanded: boolean }>`
   height: 50px;
-  overflow: hidden;
   position: relative;
 
   ul {
     font-size: 0.8rem;
     font-weight: bold;
-    line-height: 50px;
     list-style: none;
     opacity: ${props => (props.isExpanded ? '1' : '0')};
-    padding: 0 50px 0 10px;
+    padding: 10px 50px 10px 10px;
     transition: all 0.5s;
     user-select: none;
 
@@ -30,10 +28,33 @@ export const Header = styled.header<{ isExpanded: boolean }>`
       cursor: pointer;
       display: inline-block;
       padding: 0 10px;
+      height: 30px;
+      line-height: 30px;
+      background-color: #ccc;
+      color: #444;
+      stransition: all 0.1s;
+
+      &:first-of-type {
+        border-radius: 4px 0 0 4px;
+      }
+
+      &:last-of-type {
+        border-radius: 0 4px 4px 0;
+      }
+
+      &:hover:not(.active) {
+        color: #333;
+        background-color: #c4c4c4;
+      }
+
+      &:active:not(.active) {
+        background-color: #bbb;
+      }
     }
 
     .active {
-      color: #ff4136;
+      background-color: #ff4136;
+      color: #fafafa;
     }
   }
 `;
@@ -41,21 +62,30 @@ export const Header = styled.header<{ isExpanded: boolean }>`
 export const Hamburger = styled.div`
   background-color: #ccc;
   border-radius: 3px;
-  color: #777;
+  color: #444;
   cursor: pointer;
   height: 30px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 30px;
   position: absolute;
   right: 10px;
   text-align: center;
   top: 10px;
   width: 30px;
+
+  &:hover {
+    color: #333;
+    background-color: #c4c4c4;
+  }
+
+  &:active {
+    background-color: #bbb;
+  }
 `;
 
 export const Content = styled.main<{ isExpanded: boolean }>`
   flex: 1;
   opacity: ${props => (props.isExpanded ? '1' : '0')};
-  overflow: hidden;
+  overflow: auto;
   transition: all 0.5s;
 `;

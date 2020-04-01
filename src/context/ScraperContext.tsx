@@ -38,6 +38,7 @@ const ScraperContextProvider: React.FC = props => {
   // to do to trigger it, is providing a valid list-Object to the state.
   useEffect(() => {
     activateScraper(activeScraper);
+    // eslint-disable-next-line
   }, [activeScraper]);
 
   const activateScraper = (list: ListTypes) => {

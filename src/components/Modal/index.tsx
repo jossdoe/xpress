@@ -26,6 +26,8 @@ import {
   CheckboxSection,
   SubmitSection
 } from './styles';
+import { FiTrash2, FiCircle, FiCheckCircle } from 'react-icons/fi';
+import { IoIosCloseCircle } from 'react-icons/io';
 
 const Modal = () => {
   const { postEntry, deleteEntry, editTurbo } = useContext(FirebaseContext);
@@ -123,14 +125,14 @@ const Modal = () => {
               onClick={() => deleteTurbo(formData.firebaseId)}
             >
               <span>
-                <i className="fas fa-trash-alt" />
+                <FiTrash2 />
               </span>
             </button>
           )}
         </SubmitSection>
 
         <CloseButton onClick={() => hideModal()}>
-          <i className="fas fa-times-circle" />
+          <IoIosCloseCircle />
         </CloseButton>
       </Content>
     </Background>
@@ -177,9 +179,7 @@ const TurboForm = () => {
               onChange={() => formData.setIsReady(!formData.isReady)}
             />
             <label htmlFor="modalIsReady">
-              <i
-                className={formData.isReady ? 'fas fa-check' : 'fas fa-times'}
-              />
+              {formData.isReady ? <FiCheckCircle /> : <FiCircle />}
             </label>
           </aside>
         </li>
@@ -195,9 +195,7 @@ const TurboForm = () => {
               onChange={() => formData.setIsOnline(!formData.isOnline)}
             />
             <label htmlFor="modalIsOnline">
-              <i
-                className={formData.isOnline ? 'fas fa-check' : 'fas fa-times'}
-              />
+              {formData.isOnline ? <FiCheckCircle /> : <FiCircle />}
             </label>
           </aside>
         </li>
@@ -213,9 +211,7 @@ const TurboForm = () => {
               onChange={() => formData.setIsPosted(!formData.isPosted)}
             />
             <label htmlFor="modalIsPosted">
-              <i
-                className={formData.isPosted ? 'fas fa-check' : 'fas fa-times'}
-              />
+              {formData.isPosted ? <FiCheckCircle /> : <FiCircle />}
             </label>
           </aside>
         </li>
