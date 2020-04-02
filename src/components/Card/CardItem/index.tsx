@@ -14,12 +14,21 @@ const CardItem: React.FC<PropsType> = props => {
   return (
     <Item isPosted={props.item.isPosted}>
       <ActionButton
+        isPosted={props.item.isPosted}
         onClick={() => setIsPosted(props.item.id, !props.item.isPosted)}
       >
-        {props.item.isPosted && <FiCheckCircle />}
-        {!props.item.isPosted && <FiCircle />}
+        {props.item.isPosted && (
+          <div>
+            <FiCheckCircle style={{ verticalAlign: 'middle' }} />
+          </div>
+        )}
+        {!props.item.isPosted && (
+          <div>
+            <FiCircle style={{ verticalAlign: 'middle' }} />
+          </div>
+        )}
       </ActionButton>
-      <Description>
+      <Description isPosted={props.item.isPosted}>
         <a
           href={props.item.url || '#'}
           target="_blank"

@@ -24,5 +24,7 @@ export const CardComponent = styled.section`
   ul {
     list-style: none;
     padding: 20px;
+    height: calc(100% - 50px);
+    overflow: auto;
   }
 `;
