@@ -8,7 +8,7 @@ import { FiPlusCircle, FiChevronLeft } from 'react-icons/fi';
 
 const Sidebar = () => {
   const { settings } = useContext(MetaContext);
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [activeView, setActiveView] = useState<
     'addTurbo' | 'addLink' | 'scraper'
   >('addTurbo');
