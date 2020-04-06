@@ -5,7 +5,7 @@ const TextInput = styled.input<{ variant: 'light' | 'dark' }>`
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   border: none;
   border-radius: 4px;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.variant === 'light' ? '#e3e3e3' : '#d3d3d3'};
   box-shadow: inset 1px 2px 3px #0000000a, inset 1px 2px 9px #0000000a;
   color: #333;
@@ -13,6 +13,7 @@ const TextInput = styled.input<{ variant: 'light' | 'dark' }>`
   text-align: left;
   width: 100%;
   font-size: 0.9rem;
+  transition: all 0.1s;
 
   &:hover {
     box-shadow: inset 1px 2px 3px #00000011, inset 1px 2px 9px #00000011;
