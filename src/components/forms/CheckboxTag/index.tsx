@@ -7,9 +7,10 @@ type PropsType = {
   name: string;
   checked: boolean;
   changeHandler: (value: boolean) => void;
+  variant?: 'light' | 'dark';
 };
 
-const CheckboxTag: React.FC<PropsType> = props => {
+const CheckboxTag: React.FC<PropsType> = (props) => {
   return (
     <>
       <CheckboxInput
@@ -20,7 +21,7 @@ const CheckboxTag: React.FC<PropsType> = props => {
         checked={props.checked}
         onChange={() => props.changeHandler(!props.checked)}
       />
-      <CheckboxLabel htmlFor={props.name}>
+      <CheckboxLabel htmlFor={props.name} dark={props.variant === 'dark'}>
         {props.checked ? (
           <FiCheckCircle
             style={{ marginRight: '5px', verticalAlign: 'middle' }}

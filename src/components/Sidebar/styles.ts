@@ -4,7 +4,7 @@ export const NavLeft = styled.aside<{ isExpanded: boolean }>`
   background-color: #eaeaea;
   display: flex;
   flex-direction: column;
-  margin-left: ${props => (props.isExpanded ? '0' : '-300px')};
+  margin-left: ${(props) => (props.isExpanded ? '0' : '-300px')};
   overflow: hidden;
   position: relative;
   transition: all 0.5s;
@@ -19,7 +19,7 @@ export const Header = styled.header<{ isExpanded: boolean }>`
     font-size: 0.8rem;
     font-weight: bold;
     list-style: none;
-    opacity: ${props => (props.isExpanded ? '1' : '0')};
+    opacity: ${(props) => (props.isExpanded ? '1' : '0')};
     padding: 10px 50px 10px 10px;
     transition: all 0.5s;
     user-select: none;
@@ -60,9 +60,9 @@ export const Header = styled.header<{ isExpanded: boolean }>`
 `;
 
 export const Hamburger = styled.div`
-  background-color: #ccc;
-  border-radius: 3px;
-  color: #444;
+  background-color: #333;
+  border-radius: 6px;
+  color: #fafafa;
   cursor: pointer;
   height: 30px;
   font-size: 1.2rem;
@@ -72,20 +72,25 @@ export const Hamburger = styled.div`
   text-align: center;
   top: 10px;
   width: 30px;
+  transition: all 0.1s;
 
   &:hover {
-    color: #333;
-    background-color: #c4c4c4;
+    background-color: #444;
   }
 
   &:active {
-    background-color: #bbb;
+    background-color: #222;
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 0 1px #fdfdfd;
   }
 `;
 
 export const Content = styled.main<{ isExpanded: boolean }>`
   flex: 1;
-  opacity: ${props => (props.isExpanded ? '1' : '0')};
+  opacity: ${(props) => (props.isExpanded ? '1' : '0')};
   overflow: auto;
   transition: all 0.5s;
 `;

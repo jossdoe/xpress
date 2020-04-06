@@ -6,7 +6,7 @@ import InputLabel from 'components/forms/InputLabel';
 import CheckboxTag from 'components/forms/CheckboxTag';
 import SubmitButton from 'components/forms/SubmitButton';
 import TextInput from 'components/forms/TextInput';
-import TurboRadioGroup from 'components/forms/TuboRadioGroup';
+import TurboRadioGroup from 'components/forms/TurboRadioGroup';
 
 const AddTurbo = () => {
   const { postEntry } = useContext(FirebaseContext);
@@ -42,7 +42,7 @@ const AddTurbo = () => {
       folder: folderValue,
       isReady,
       isOnline,
-      isPosted
+      isPosted,
     });
 
     resetForm();

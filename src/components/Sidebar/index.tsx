@@ -40,9 +40,9 @@ const Sidebar = () => {
         </ul>
         <Hamburger onClick={() => setIsExpanded(!isExpanded)}>
           {isExpanded ? (
-            <FiChevronLeft style={{ marginTop: '5px' }} />
+            <FiChevronLeft style={{ marginTop: '6px' }} />
           ) : (
-            <FiPlusCircle style={{ marginTop: '5px' }} />
+            <FiPlusCircle style={{ marginTop: '6px' }} />
           )}
         </Hamburger>
       </Header>

@@ -9,11 +9,14 @@ export const CheckboxInput = styled.input`
   }
 `;
 
-export const CheckboxLabel = styled.label`
+export const CheckboxLabel = styled.label<{ dark: boolean }>`
   display: inline-block;
   background-color: #fafafa;
   color: #333;
-  box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
+  box-shadow: ${(props) =>
+    props.dark
+      ? '1px 1px 4px #0000001c, 1px 1px 12px #0000001c'
+      : '1px 2px 3px #0000000a, 1px 2px 9px #0000000a'};
   padding: 0.6rem 0.8rem;
   border-radius: 5px;
   user-select: none;

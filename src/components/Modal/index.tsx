@@ -10,23 +10,25 @@
 // imported from the ModalContext, we either render the TurboForm-
 // component or the EntryForm-component. Other than that, the code is
 // fairly straightforward.
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FirebaseContext } from 'context/FirebaseContext';
 import { MetaContext } from 'context/MetaContext';
 import { ModalContext } from 'context/ModalContext';
-import useRadioInput from 'forms/useRadioInput';
-import useTextInput from 'forms/useTextInput';
 import {
   Background,
   Content,
   CloseButton,
-  FieldSection,
-  QuestionSection,
-  RadioSection,
-  CheckboxSection,
-  SubmitSection
+  DeleteQuestion,
+  DeleteButton,
+  CancelButton,
 } from './styles';
-import { FiTrash2, FiCircle, FiCheckCircle } from 'react-icons/fi';
+import Stack from 'components/layout/Stack';
+import SubmitButton from 'components/forms/SubmitButton';
+import TextInput from 'components/forms/TextInput';
+import InputLabel from 'components/forms/InputLabel';
+import CheckboxRow from 'components/forms/CheckboxRow';
+import CheckboxTag from 'components/forms/CheckboxTag';
+import LinkRadioGroup from 'components/forms/LinkRadioGroup';
 import { IoIosCloseCircle } from 'react-icons/io';
 
 const Modal = () => {
@@ -34,6 +36,7 @@ const Modal = () => {
   const { formData, isVisible, hideModal, modalType } = useContext(
     ModalContext
   );
+  const [isVisibleDeletion, setIsVisibleDeletion] = useState<boolean>(false);
   if (!isVisible) return null;
 
   // Submitting the modal needs to take three things into account:
@@ -43,7 +46,7 @@ const Modal = () => {
   const submitModal = () => {
     if (modalType === 'entry') {
       if (formData.switchValue === 'both') {
-        formData.listArray.forEach(item => {
+        formData.listArray.forEach((item) => {
           postEntry({
             type: 'social',
             list: item,
@@ -53,7 +56,7 @@ const Modal = () => {
             folder: '',
             isReady: true,
             isOnline: true,
-            isPosted: false
+            isPosted: false,
           });
 
           postEntry({
@@ -65,11 +68,11 @@ const Modal = () => {
             folder: '',
             isReady: true,
             isOnline: true,
-            isPosted: false
+            isPosted: false,
           });
         });
       } else {
-        formData.listArray.forEach(item => {
+        formData.listArray.forEach((item) => {
           postEntry({
             type: formData.switchValue === 'social' ? 'social' : 'front',
             list: item,
@@ -79,7 +82,7 @@ const Modal = () => {
             folder: '',
             isReady: true,
             isOnline: true,
-            isPosted: false
+            isPosted: false,
           });
         });
       }
@@ -92,7 +95,7 @@ const Modal = () => {
         url: formData.urlValue,
         isReady: formData.isReady,
         isOnline: formData.isOnline,
-        isPosted: formData.isPosted
+        isPosted: formData.isPosted,
       });
       hideModal();
     } else {
@@ -101,6 +104,7 @@ const Modal = () => {
   };
 
   const deleteTurbo = (id: string) => {
+    setIsVisibleDeletion(false);
     deleteEntry(id);
     hideModal();
   };
@@ -108,29 +112,20 @@ const Modal = () => {
   return (
     <Background>
       <Content>
-        {modalType === 'turbo' && <TurboForm />}
+        {modalType === 'turbo' && (
+          <TurboForm
+            deleteTurbo={deleteTurbo}
+            isVisibleDeletion={isVisibleDeletion}
+            setIsVisibleDeletion={setIsVisibleDeletion}
+          />
+        )}
         {modalType === 'entry' && <EntryForm />}
-
-        <SubmitSection>
-          <button className="submit" onClick={() => submitModal()}>
-            Submit
-          </button>
-          <button className="cancel" onClick={() => hideModal()}>
-            Cancel
-          </button>
-
-          {modalType === 'turbo' && (
-            <button
-              className="delete"
-              onClick={() => deleteTurbo(formData.firebaseId)}
-            >
-              <span>
-                <FiTrash2 />
-              </span>
-            </button>
-          )}
-        </SubmitSection>
-
+        <Stack spaceRight={4} style={{ textAlign: 'right' }}>
+          <SubmitButton onClick={() => submitModal()}>Save</SubmitButton>
+          <DeleteButton onClick={() => setIsVisibleDeletion(true)}>
+            Delete
+          </DeleteButton>
+        </Stack>
         <CloseButton onClick={() => hideModal()}>
           <IoIosCloseCircle />
         </CloseButton>
@@ -139,83 +134,107 @@ const Modal = () => {
   );
 };
 
-const TurboForm = () => {
+const TurboForm: React.FC<{
+  deleteTurbo: (id: string) => void;
+  isVisibleDeletion: boolean;
+  setIsVisibleDeletion: (value: boolean) => void;
+}> = (props) => {
   const { formData } = useContext(ModalContext);
 
   return (
     <>
-      <FieldSection>
-        {useTextInput(
-          'title',
-          'Headline',
-          formData.titleValue,
-          formData.setTitleValue
-        )}
-        {useTextInput(
-          'topic',
-          'Topic',
-          formData.topicValue,
-          formData.setTopicValue
-        )}
-        {useTextInput(
-          'folder',
-          'Folder',
-          formData.folderValue,
-          formData.setFolderValue
-        )}
-        {useTextInput('url', 'Link', formData.urlValue, formData.setUrlValue)}
-      </FieldSection>
-
-      <QuestionSection>
-        <li>
-          <div>Redacted?</div>
-          <aside>
-            <input
-              type="checkbox"
-              name="isReady"
-              value="isReady"
-              id="modalIsReady"
-              checked={formData.isReady}
-              onChange={() => formData.setIsReady(!formData.isReady)}
-            />
-            <label htmlFor="modalIsReady">
-              {formData.isReady ? <FiCheckCircle /> : <FiCircle />}
-            </label>
-          </aside>
-        </li>
-        <li>
-          <div>Online?</div>
-          <aside>
-            <input
-              type="checkbox"
-              name="isOnline"
-              value="isOnline"
-              id="modalIsOnline"
-              checked={formData.isOnline}
-              onChange={() => formData.setIsOnline(!formData.isOnline)}
-            />
-            <label htmlFor="modalIsOnline">
-              {formData.isOnline ? <FiCheckCircle /> : <FiCircle />}
-            </label>
-          </aside>
-        </li>
-        <li>
-          <div>Posted?</div>
-          <aside>
-            <input
-              type="checkbox"
-              name="isPosted"
-              value="isPosted"
-              id="modalIsPosted"
-              checked={formData.isPosted}
-              onChange={() => formData.setIsPosted(!formData.isPosted)}
-            />
-            <label htmlFor="modalIsPosted">
-              {formData.isPosted ? <FiCheckCircle /> : <FiCircle />}
-            </label>
-          </aside>
-        </li>
-      </QuestionSection>
+      <Stack space={4} marginBottom={20}>
+        <div>
+          <InputLabel>Headline</InputLabel>
+          <TextInput
+            variant="light"
+            type="text"
+            name="title"
+            id="title"
+            value={formData.titleValue}
+            onChange={(e) => formData.setTitleValue(e.currentTarget.value)}
+          />
+        </div>
+        <div>
+          <InputLabel>Topic</InputLabel>
+          <TextInput
+            variant="light"
+            type="text"
+            name="topic"
+            id="topic"
+            value={formData.topicValue}
+            onChange={(e) => formData.setTopicValue(e.currentTarget.value)}
+          />
+        </div>
+        <div>
+          <InputLabel>Folder</InputLabel>
+          <TextInput
+            variant="light"
+            type="text"
+            name="folder"
+            id="folder"
+            value={formData.folderValue}
+            onChange={(e) => formData.setFolderValue(e.currentTarget.value)}
+          />
+        </div>
+        <div>
+          <InputLabel>Link</InputLabel>
+          <TextInput
+            variant="light"
+            type="text"
+            name="url"
+            id="url"
+            value={formData.urlValue}
+            onChange={(e) => formData.setUrlValue(e.currentTarget.value)}
+          />
+        </div>
+      </Stack>
+      <Stack spaceRight={4} marginBottom={30}>
+        <span>
+          <CheckboxTag
+            variant="dark"
+            labelText="Redacted"
+            name="turboModalIsReady"
+            checked={formData.isReady}
+            changeHandler={(value: boolean) => formData.setIsReady(value)}
+          />
+        </span>
+        <span>
+          <CheckboxTag
+            variant="dark"
+            labelText="Online"
+            name="turboModalIsOnlined"
+            checked={formData.isOnline}
+            changeHandler={(value: boolean) => formData.setIsOnline(value)}
+          />
+        </span>
+        <span>
+          <CheckboxTag
+            variant="dark"
+            labelText="Posted"
+            name="turboModalIsPosted"
+            checked={formData.isPosted}
+            changeHandler={(value: boolean) => formData.setIsPosted(value)}
+          />
+        </span>
+      </Stack>
+      {props.isVisibleDeletion && (
+        <Background>
+          <DeleteQuestion>
+            <Stack marginBottom={30}>Do you really want to delete this?</Stack>
+            <Stack spaceRight={6} style={{ textAlign: 'right' }}>
+              <SubmitButton
+                onClick={() => props.deleteTurbo(formData.firebaseId)}
+              >
+                Yes
+              </SubmitButton>
+              <CancelButton onClick={() => props.setIsVisibleDeletion(false)}>
+                Cancel
+              </CancelButton>
+            </Stack>
+          </DeleteQuestion>
+        </Background>
+      )}
     </>
   );
 };
@@ -239,63 +258,56 @@ const EntryForm = () => {
 
   return (
     <>
-      <FieldSection>
-        {useTextInput(
-          'modalTitle',
-          'Headline',
-          formData.titleValue,
-          formData.setTitleValue
-        )}
-        {useTextInput(
-          'modalUrl',
-          'Link',
-          formData.urlValue,
-          formData.setUrlValue
-        )}
-      </FieldSection>
-
-      <RadioSection>
-        {useRadioInput(
-          'modalSwitch',
-          'modalSocial',
-          'social',
-          formData.switchValue,
-          formData.setSwitchValue
-        )}
-        {useRadioInput(
-          'modalSwitch',
-          'modalFront',
-          'front',
-          formData.switchValue,
-          formData.setSwitchValue
-        )}
-        {useRadioInput(
-          'modalSwitch',
-          'modalBoth',
-          'both',
-          formData.switchValue,
-          formData.setSwitchValue
-        )}
-      </RadioSection>
-
-      <CheckboxSection>
-        <h4>Lists</h4>
-        {lists.map((list, index) => {
-          return (
-            <React.Fragment key={index}>
-              <input
-                type="checkbox"
-                name="modalLists"
+      <Stack space={4} marginBottom={20}>
+        <div>
+          <InputLabel>Headline</InputLabel>
+          <TextInput
+            variant="light"
+            type="text"
+            name="modalTitle"
+            id="modalTitle"
+            value={formData.titleValue}
+            onChange={(e) => formData.setTitleValue(e.currentTarget.value)}
+          />
+        </div>
+        <div>
+          <InputLabel>Link</InputLabel>
+          <TextInput
+            variant="light"
+            type="text"
+            name="modalUrl"
+            id="modalUrl"
+            value={formData.urlValue}
+            onChange={(e) => formData.setUrlValue(e.currentTarget.value)}
+          />
+        </div>
+      </Stack>
+      <Stack marginBottom={30} style={{ display: 'flex' }}>
+        <Stack space={2} style={{ flex: 1, paddingRight: 10 }}>
+          <InputLabel>Choose Context</InputLabel>
+          <LinkRadioGroup
+            groupName="modalSwitch"
+            choices={['social', 'front', 'both']}
+            switchValue={formData.switchValue}
+            setSwitchValue={formData.setSwitchValue}
+          />
+        </Stack>
+        <Stack space={2} style={{ flex: 1, paddingLeft: 10 }}>
+          <InputLabel>Choose Lists</InputLabel>
+          {lists.map((list, index) => (
+            <div key={index}>
+              <CheckboxRow
+                variant="dark"
+                labelText={list.title}
+                groupName="lists"
                 value={list.title}
-                id={'modal' + list.title}
                 checked={formData.listArray.includes(list.title)}
-                onChange={e => handleCheckboxToggle(e.target.value)}
+                changeHandler={handleCheckboxToggle}
               />
-              <label htmlFor={'modal' + list.title}>{list.title}</label>
-            </React.Fragment>
-          );
-        })}
-      </CheckboxSection>
+            </div>
+          ))}
+        </Stack>
+      </Stack>
     </>
   );
 };
