@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from 'context/FirebaseContext';
 import { MetaContext } from 'context/MetaContext';
 import {
@@ -12,7 +12,7 @@ import {
   Settings,
   VisibilityItem,
   VisibilityLabel,
-  VisibilitySwitch,
+  VisibilitySwitch
 } from './styles';
 import SubmitButton from 'components/forms/SubmitButton';
 import Stack from 'components/layout/Stack';
@@ -23,14 +23,9 @@ const Navbar = () => {
   const { lists, viewState } = useContext(MetaContext);
   const { isLoggedIn, logOut, deleteList } = useContext(FirebaseContext);
 
-  const [isSubHeaderVisible, setIsSubHeaderVisible] = useState<boolean>(false);
+  const [isVisibleSettings, setIsVisibleSettings] = useState<boolean>(false);
   const [valueDeleteMenu, setValueDeleteMenu] = useState<string>('HAZ');
   const [valueDeleteMode, setValueDeleteMode] = useState<string>('social');
-  const [activeRoute, setActiveRoute] = useState(window.location.pathname);
-
-  const updateActiveRoute = () => {
-    setActiveRoute(window.location.pathname);
-  };
 
   if (isLoggedIn)
     return (
@@ -39,37 +34,27 @@ const Navbar = () => {
           <Logo>
             <NavbarLogoSVG />
           </Logo>
-          <Menu onClick={() => updateActiveRoute()}>
-            <Link to="/turbos">
-              <Item
-                active={
-                  activeRoute === '/turbos' ||
-                  activeRoute === '/' ||
-                  activeRoute === '/login'
-                }
-              >
-                Turbos
-              </Item>
-            </Link>
-            <Link to="/frontpages">
-              <Item active={activeRoute === '/frontpages'}>Frontpages</Item>
-            </Link>
-            <Link to="/social">
-              <Item active={activeRoute === '/social'}>Social</Item>
-            </Link>
+          <Menu>
+            <Item>
+              <NavLink to="/turbos">Turbos</NavLink>
+            </Item>
+            <Item>
+              <NavLink to="/frontpages">Frontpages</NavLink>
+            </Item>
+            <Item>
+              <NavLink to="/social">Social</NavLink>
+            </Item>
           </Menu>
           <Stack spaceRight={5} style={{ marginRight: 15 }}>
             <SettingsButton
-              onClick={() => setIsSubHeaderVisible(!isSubHeaderVisible)}
+              onClick={() => setIsVisibleSettings(!isVisibleSettings)}
             >
               <FiSettings />
             </SettingsButton>
             <SignOutButton onClick={() => logOut()}>Sign Out</SignOutButton>
           </Stack>
         </Header>
-
-        {/* Settings-Refactor START */}
-        <Settings isVisible={isSubHeaderVisible}>
+        <Settings isVisible={isVisibleSettings}>
           <Stack space={6} marginBottom={20}>
             {lists.map((list, index) => (
               <VisibilityItem key={index}>

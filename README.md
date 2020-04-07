@@ -164,10 +164,6 @@ The backend-code for scraping is not included in this project, since I don't wan
 
 ## Backlog
 
-- Toasts
-- Hover-styles and animations
 - Adding dark mode
 - Edit mode for all lists (e.g. ability to edit & delete single links)
-- Transforming png-files to SVG
-- Support for longer list names (means: editing the forms, so it still shows the full name)
 - Persisting view state in local storage or session (e.g. visibility of lists)

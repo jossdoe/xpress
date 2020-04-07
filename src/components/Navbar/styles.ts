@@ -26,37 +26,50 @@ export const Menu = styled.ul`
   text-align: center;
 `;
 
-export const Item = styled.li<{ active: boolean }>`
-  color: ${(props) => (props.active ? '#ff4136' : '#999999')};
+export const Item = styled.li`
   display: inline-block;
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.04rem;
-  padding: 0 20px;
-  text-transform: uppercase;
-  position: relative;
-  opacity: 1;
-  transition: all 0.1s;
 
-  &::before {
+  a {
+    display: block;
+    position: relative;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+    padding: 0 20px;
+    opacity: 1;
+    color: #999999;
+    transition: all 0.1s;
+  }
+
+  a::before {
     content: '';
     display: inline-block;
     top: 10px;
     bottom: 12px;
-    left: ${(props) => (props.active ? '20px' : '52%')};
-    right: ${(props) => (props.active ? '20px' : '52%')};
+    left: 52%;
+    right: 52%;
     position: absolute;
     background-color: transparent;
     border-bottom: solid 2px #ff4136;
     transition: all 0.3s;
   }
 
-  &:hover {
+  a:hover {
     color: #ff4136;
   }
 
-  &:active {
+  a:active {
     opacity: 0.8;
+  }
+
+  .active {
+    color: #ff4136;
+
+    &::before {
+      left: 20px;
+      right: 20px;
+    }
   }
 `;
 
