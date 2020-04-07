@@ -20,7 +20,7 @@ import {
   CloseButton,
   DeleteQuestion,
   DeleteButton,
-  CancelButton,
+  CancelButton
 } from './styles';
 import Stack from 'components/layout/Stack';
 import SubmitButton from 'components/forms/SubmitButton';
@@ -56,7 +56,7 @@ const Modal = () => {
             folder: '',
             isReady: true,
             isOnline: true,
-            isPosted: false,
+            isPosted: false
           });
 
           postEntry({
@@ -68,7 +68,7 @@ const Modal = () => {
             folder: '',
             isReady: true,
             isOnline: true,
-            isPosted: false,
+            isPosted: false
           });
         });
       } else {
@@ -82,7 +82,7 @@ const Modal = () => {
             folder: '',
             isReady: true,
             isOnline: true,
-            isPosted: false,
+            isPosted: false
           });
         });
       }
@@ -95,7 +95,7 @@ const Modal = () => {
         url: formData.urlValue,
         isReady: formData.isReady,
         isOnline: formData.isOnline,
-        isPosted: formData.isPosted,
+        isPosted: formData.isPosted
       });
       hideModal();
     } else {
@@ -149,8 +149,6 @@ const TurboForm: React.FC<{
           <TextInput
             variant="light"
             type="text"
-            name="title"
-            id="title"
             value={formData.titleValue}
             onChange={(e) => formData.setTitleValue(e.currentTarget.value)}
           />
@@ -160,8 +158,6 @@ const TurboForm: React.FC<{
           <TextInput
             variant="light"
             type="text"
-            name="topic"
-            id="topic"
             value={formData.topicValue}
             onChange={(e) => formData.setTopicValue(e.currentTarget.value)}
           />
@@ -171,8 +167,6 @@ const TurboForm: React.FC<{
           <TextInput
             variant="light"
             type="text"
-            name="folder"
-            id="folder"
             value={formData.folderValue}
             onChange={(e) => formData.setFolderValue(e.currentTarget.value)}
           />
@@ -182,8 +176,6 @@ const TurboForm: React.FC<{
           <TextInput
             variant="light"
             type="text"
-            name="url"
-            id="url"
             value={formData.urlValue}
             onChange={(e) => formData.setUrlValue(e.currentTarget.value)}
           />
@@ -195,6 +187,7 @@ const TurboForm: React.FC<{
             variant="dark"
             labelText="Redacted"
             name="turboModalIsReady"
+            value="isReady"
             checked={formData.isReady}
             changeHandler={(value: boolean) => formData.setIsReady(value)}
           />
@@ -203,7 +196,8 @@ const TurboForm: React.FC<{
           <CheckboxTag
             variant="dark"
             labelText="Online"
-            name="turboModalIsOnlined"
+            name="turboModalIsOnline"
+            value="isOnline"
             checked={formData.isOnline}
             changeHandler={(value: boolean) => formData.setIsOnline(value)}
           />
@@ -213,6 +207,7 @@ const TurboForm: React.FC<{
             variant="dark"
             labelText="Posted"
             name="turboModalIsPosted"
+            value="isPosted"
             checked={formData.isPosted}
             changeHandler={(value: boolean) => formData.setIsPosted(value)}
           />
@@ -264,8 +259,6 @@ const EntryForm = () => {
           <TextInput
             variant="light"
             type="text"
-            name="modalTitle"
-            id="modalTitle"
             value={formData.titleValue}
             onChange={(e) => formData.setTitleValue(e.currentTarget.value)}
           />
@@ -275,8 +268,6 @@ const EntryForm = () => {
           <TextInput
             variant="light"
             type="text"
-            name="modalUrl"
-            id="modalUrl"
             value={formData.urlValue}
             onChange={(e) => formData.setUrlValue(e.currentTarget.value)}
           />
@@ -286,7 +277,7 @@ const EntryForm = () => {
         <Stack space={2} style={{ flex: 1, paddingRight: 10 }}>
           <InputLabel>Choose Context</InputLabel>
           <LinkRadioGroup
-            groupName="modalSwitch"
+            groupName="modalEntrySwitch"
             choices={['social', 'front', 'both']}
             switchValue={formData.switchValue}
             setSwitchValue={formData.setSwitchValue}
@@ -299,7 +290,7 @@ const EntryForm = () => {
               <CheckboxRow
                 variant="dark"
                 labelText={list.title}
-                groupName="lists"
+                groupName="modalEntryLists"
                 value={list.title}
                 checked={formData.listArray.includes(list.title)}
                 changeHandler={handleCheckboxToggle}

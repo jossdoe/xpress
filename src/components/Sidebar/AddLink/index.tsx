@@ -30,7 +30,7 @@ const AddLink = () => {
   // to work through actually posting two entries.
   const postForm = () => {
     if (switchValue === 'both') {
-      listArray.forEach(item => {
+      listArray.forEach((item) => {
         postEntry({
           type: 'social',
           list: item,
@@ -56,7 +56,7 @@ const AddLink = () => {
         });
       });
     } else {
-      listArray.forEach(item => {
+      listArray.forEach((item) => {
         postEntry({
           type: switchValue,
           list: item,
@@ -95,8 +95,6 @@ const AddLink = () => {
           <TextInput
             variant="dark"
             type="text"
-            name="title"
-            id="title"
             value={titleValue}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setTitleValue(e.currentTarget.value)
@@ -108,8 +106,6 @@ const AddLink = () => {
           <TextInput
             variant="dark"
             type="text"
-            name="url"
-            id="url"
             value={urlValue}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setUrlValue(e.currentTarget.value)
@@ -120,7 +116,7 @@ const AddLink = () => {
       <Stack space={2} marginBottom={20}>
         <InputLabel>Choose Context</InputLabel>
         <LinkRadioGroup
-          groupName="switch"
+          groupName="sidebarLinkSwitch"
           choices={['social', 'front', 'both']}
           switchValue={switchValue}
           setSwitchValue={setSwitchValue}
@@ -132,7 +128,7 @@ const AddLink = () => {
           <React.Fragment key={index}>
             <CheckboxRow
               labelText={list.title}
-              groupName="lists"
+              groupName="sidebarLinkCheckboxes"
               value={list.title}
               checked={listArray.includes(list.title)}
               changeHandler={handleCheckboxToggle}

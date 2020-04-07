@@ -9,7 +9,7 @@ type PropsType = {
   setSwitchValue: (value: LinkTypeFormTypes) => void;
 };
 
-const LinkRadioGroup: React.FC<PropsType> = props => {
+const LinkRadioGroup: React.FC<PropsType> = (props) => {
   return (
     <>
       {props.choices.map((choice, index) => {
@@ -17,7 +17,7 @@ const LinkRadioGroup: React.FC<PropsType> = props => {
           <RadioGroupItem key={index}>
             <RadioInput
               type="radio"
-              name="lists"
+              name={props.groupName}
               value={choice}
               id={choice}
               checked={props.switchValue === choice}

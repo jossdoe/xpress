@@ -42,7 +42,7 @@ const AddTurbo = () => {
       folder: folderValue,
       isReady,
       isOnline,
-      isPosted,
+      isPosted
     });
 
     resetForm();
@@ -56,8 +56,6 @@ const AddTurbo = () => {
           <TextInput
             variant="dark"
             type="text"
-            name="title"
-            id="title"
             value={titleValue}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setTitleValue(e.currentTarget.value)
@@ -69,8 +67,6 @@ const AddTurbo = () => {
           <TextInput
             variant="dark"
             type="text"
-            name="topic"
-            id="topic"
             value={topicValue}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setTopicValue(e.currentTarget.value)
@@ -82,8 +78,6 @@ const AddTurbo = () => {
           <TextInput
             variant="dark"
             type="text"
-            name="folder"
-            id="folder"
             value={folderValue}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setFolderValue(e.currentTarget.value)
@@ -95,8 +89,6 @@ const AddTurbo = () => {
           <TextInput
             variant="dark"
             type="text"
-            name="url"
-            id="url"
             value={urlValue}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setUrlValue(e.currentTarget.value)
@@ -107,6 +99,7 @@ const AddTurbo = () => {
       <Stack space={2} marginBottom={20}>
         <InputLabel>Choose List</InputLabel>
         <TurboRadioGroup
+          groupName="sidebarTurboRadios"
           lists={lists}
           activeList={activeList}
           setActiveList={setActiveList}
@@ -116,19 +109,22 @@ const AddTurbo = () => {
         <InputLabel>Status Tags</InputLabel>
         <CheckboxTag
           labelText="Redacted"
-          name="isRedacted"
+          name="sidebarTurboIsRedacted"
+          value="isRedacted"
           checked={isReady}
           changeHandler={setIsReady}
         />
         <CheckboxTag
           labelText="Online"
-          name="isOnline"
+          name="sidebarTurboIsOnline"
+          value="isOnline"
           checked={isOnline}
           changeHandler={setIsOnline}
         />
         <CheckboxTag
           labelText="Posted"
-          name="isPosted"
+          name="sidebarTurboIsPosted"
+          value="isPosted"
           checked={isPosted}
           changeHandler={setIsPosted}
         />

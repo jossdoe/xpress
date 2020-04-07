@@ -5,6 +5,7 @@ import { FiCheckCircle, FiCircle } from 'react-icons/fi';
 type PropsType = {
   labelText: string;
   name: string;
+  value: string;
   checked: boolean;
   changeHandler: (value: boolean) => void;
   variant?: 'light' | 'dark';
@@ -16,7 +17,7 @@ const CheckboxTag: React.FC<PropsType> = (props) => {
       <CheckboxInput
         type="checkbox"
         name={props.name}
-        value={props.name}
+        value={props.value}
         id={props.name}
         checked={props.checked}
         onChange={() => props.changeHandler(!props.checked)}
