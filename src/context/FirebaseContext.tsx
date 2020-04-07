@@ -9,8 +9,9 @@ import {
   LinkDatabaseType,
   LinkPostType,
   LinkUpdateType,
-  isLinkDatabaseType
+  isLinkDatabaseType,
 } from 'types';
+import { useToasts } from 'react-toast-notifications';
 
 type ContextType = {
   isLoggedIn: boolean;
@@ -39,20 +40,22 @@ export const FirebaseContext = createContext<ContextType>({
   socialEntries: [],
   frontpagesEntries: [],
   turbosEntries: [],
-  postEntry: link => {},
+  postEntry: (link) => {},
   setIsReady: (id, value) => {},
   setIsOnline: (id, value) => {},
   setIsPosted: (id, value) => {},
   deleteList: (id, mode) => {},
-  deleteEntry: id => {},
-  editTurbo: (id, changes) => {}
+  deleteEntry: (id) => {},
+  editTurbo: (id, changes) => {},
 });
 
 // Connect to DB
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const FirebaseContextProvider: React.FC = props => {
+const FirebaseContextProvider: React.FC = (props) => {
+  const { addToast } = useToasts();
+
   // Auth booleans
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loginIsInvalid, setLoginIsInvalid] = useState<boolean>(false);
@@ -80,11 +83,11 @@ const FirebaseContextProvider: React.FC = props => {
         firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
-          .then(res => {
+          .then((res) => {
             if (res.user) setIsLoggedIn(true);
             setLoginIsLoading(false);
           })
-          .catch(e => {
+          .catch((e) => {
             setIsLoggedIn(false);
             setLoginIsInvalid(true);
             setLoginIsLoading(false);
@@ -96,12 +99,19 @@ const FirebaseContextProvider: React.FC = props => {
     firebase
       .auth()
       .signOut()
-      .then(function() {
+      .then(function () {
         setIsLoggedIn(false);
+        addToast('Signed out!', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
       })
-      .catch(function(error) {
-        console.log(error);
-      });
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   }
 
   // Check if the user is already authenticated with an active session
@@ -124,12 +134,12 @@ const FirebaseContextProvider: React.FC = props => {
     if (isLoggedIn) {
       db.collection('links')
         .orderBy('timestamp')
-        .onSnapshot(querySnapshot => {
+        .onSnapshot((querySnapshot) => {
           let socialArray: Array<LinkDatabaseType> = [];
           let frontpagesArray: Array<LinkDatabaseType> = [];
           let turbosArray: Array<LinkDatabaseType> = [];
 
-          querySnapshot.forEach(doc => {
+          querySnapshot.forEach((doc) => {
             const docData = doc.data();
 
             if (isLinkDatabaseType(docData)) {
@@ -158,7 +168,7 @@ const FirebaseContextProvider: React.FC = props => {
     folder,
     isReady,
     isOnline,
-    isPosted
+    isPosted,
   }: LinkPostType) => {
     // We construct the object depending on whether all arguments are provided.
     // This is where we can define standard values in case of "undefined"- or "null"-values.
@@ -171,7 +181,7 @@ const FirebaseContextProvider: React.FC = props => {
       folder: folder || '',
       isReady,
       isOnline,
-      isPosted
+      isPosted,
     };
 
     // We need to re-parse the Objext to make sure it's a pure Object.
@@ -183,9 +193,20 @@ const FirebaseContextProvider: React.FC = props => {
         // We add the timestamp-property after parsing, because it's a serverside function
         // of Firestore and can therefore only be run and parsed on the server.
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        ...parsedObject
+        ...parsedObject,
       })
-      .catch(error => console.log('Error: ' + error));
+      .then(() =>
+        addToast('Saved!', {
+          appearance: 'success',
+          autoDismiss: true,
+        })
+      )
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   };
 
   const setIsReady = (id: string, value: boolean) => {
@@ -193,9 +214,14 @@ const FirebaseContextProvider: React.FC = props => {
 
     docRef
       .update({
-        isReady: value
+        isReady: value,
       })
-      .catch(error => console.log('Error: ', error));
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   };
 
   const setIsOnline = (id: string, value: boolean) => {
@@ -203,9 +229,14 @@ const FirebaseContextProvider: React.FC = props => {
 
     docRef
       .update({
-        isOnline: value
+        isOnline: value,
       })
-      .catch(error => console.log('Error: ', error));
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   };
 
   const setIsPosted = (id: string, value: boolean) => {
@@ -213,9 +244,14 @@ const FirebaseContextProvider: React.FC = props => {
 
     docRef
       .update({
-        isPosted: value
+        isPosted: value,
       })
-      .catch(error => console.log('Error: ', error));
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   };
 
   const deleteList = (list: string, mode: string) => {
@@ -223,24 +259,48 @@ const FirebaseContextProvider: React.FC = props => {
       .where('list', '==', list)
       .where('type', '==', mode)
       .get()
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         // Firestore doesn't have a delete-function for several documents at once.
         // This work-around is batching the selection together and then works its
         // way through them with a `forEach` that deletes them one by one.
         let batch = db.batch();
 
-        querySnapshot.forEach(function(doc) {
+        querySnapshot.forEach(function (doc) {
           batch.delete(doc.ref);
         });
 
         return batch.commit();
-      });
+      })
+      .then(() =>
+        addToast('List deleted!', {
+          appearance: 'success',
+          autoDismiss: true,
+        })
+      )
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   };
 
   const deleteEntry = (id: string) => {
     db.collection('links')
       .doc(id)
-      .delete();
+      .delete()
+      .then(() =>
+        addToast('Item deleted!', {
+          appearance: 'success',
+          autoDismiss: true,
+        })
+      )
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   };
 
   // The 'changes'-property needs to be an Object that only contains the
@@ -248,7 +308,20 @@ const FirebaseContextProvider: React.FC = props => {
   const editTurbo = (id: string, changes: LinkUpdateType) => {
     const docRef = db.collection('links').doc(id);
 
-    docRef.update(changes).catch(error => console.log('Error: ', error));
+    docRef
+      .update(changes)
+      .then(() =>
+        addToast('Changes saved!', {
+          appearance: 'success',
+          autoDismiss: true,
+        })
+      )
+      .catch((error) =>
+        addToast('Error: ' + error, {
+          appearance: 'error',
+          autoDismiss: false,
+        })
+      );
   };
 
   return (
@@ -268,7 +341,7 @@ const FirebaseContextProvider: React.FC = props => {
         setIsPosted,
         deleteList,
         deleteEntry,
-        editTurbo
+        editTurbo,
       }}
     >
       {props.children}

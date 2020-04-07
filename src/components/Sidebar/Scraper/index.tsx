@@ -2,7 +2,17 @@ import React, { useContext, useState } from 'react';
 import { MetaContext } from 'context/MetaContext';
 import { ScraperContext } from 'context/ScraperContext';
 import ScraperItem from 'components/Sidebar/Scraper/ScraperItem';
-import { Container, Settings, Title, List, Spinner } from './styles';
+import {
+  Container,
+  Settings,
+  SourceButton,
+  List,
+  Spinner,
+  ExitSettingsButton
+} from './styles';
+import { FiHash } from 'react-icons/fi';
+import { IoIosCloseCircle } from 'react-icons/io';
+import Stack from 'components/layout/Stack';
 
 const Scraper = () => {
   const {
@@ -18,63 +28,95 @@ const Scraper = () => {
 
   return (
     <Container>
-      {isVisibleSettings && (
-        <Settings>
-          <button onClick={() => setIsVisibleSettings(false)}>
-            <i className="fas fa-times"></i>
-          </button>
-          <nav>
-            <h2>Source</h2>
-            <h4>List Scrapers</h4>
+      <Settings isVisible={isVisibleSettings}>
+        <main
+          style={{
+            position: 'relative',
+            backgroundColor: '#fafafa',
+            padding: '20px',
+            borderRadius: '5px',
+            boxShadow: '2px 4px 6px #0000001a, 2px 4px 18px #0000001a'
+          }}
+        >
+          <Stack
+            marginBottom={4}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <h2>Choose Source</h2>
+            <ExitSettingsButton
+              style={{
+                paddingLeft: '50px'
+              }}
+              onClick={() => setIsVisibleSettings(false)}
+            >
+              <IoIosCloseCircle />
+            </ExitSettingsButton>
+          </Stack>
+          <Stack space={3} marginBottom={10}>
+            <h4># List Scrapers</h4>
             <ul>
-              {lists.map((list, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    setActiveScraper(list);
-                    setIsVisibleSettings(false);
-                  }}
-                >
-                  {list.title}
-                </li>
-              ))}
+              <Stack space={2}>
+                {lists.map((list, index) => (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      setActiveScraper(list);
+                      setIsVisibleSettings(false);
+                    }}
+                  >
+                    {list.title}
+                  </li>
+                ))}
+              </Stack>
             </ul>
-            <h4>Others</h4>
+          </Stack>
+          <Stack space={3}>
+            <h4># Others</h4>
             <ul>
-              {globals.map((global, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    setActiveScraper(global);
-                    setIsVisibleSettings(false);
-                  }}
-                >
-                  {global.title}
-                </li>
-              ))}
+              <Stack space={2}>
+                {globals.map((global, index) => (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      setActiveScraper(global);
+                      setIsVisibleSettings(false);
+                    }}
+                  >
+                    {global.title}
+                  </li>
+                ))}
+              </Stack>
             </ul>
-          </nav>
-        </Settings>
-      )}
+          </Stack>
+        </main>
+      </Settings>
 
-      <Title>
-        <span onClick={() => setIsVisibleSettings(true)}>
-          <i className="fas fa-exchange-alt" />
-        </span>
-        {activeScraper.title}
-      </Title>
+      <div
+        style={{
+          marginBottom: '20px',
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        <SourceButton onClick={() => setIsVisibleSettings(true)}>
+          <FiHash />
+        </SourceButton>
+        <h2 style={{ flex: 1 }}>{activeScraper.title}</h2>
+      </div>
 
       {isLoading && !isVisibleSettings && (
-        <Spinner>
+        <Spinner style={{ margin: '40px auto' }}>
           <span />
         </Spinner>
       )}
 
       {!isLoading && (
         <List>
-          {fetchedData.map(item => (
-            <ScraperItem key={item.id} item={item} />
-          ))}
+          <Stack space={6}>
+            {fetchedData.map(item => (
+              <ScraperItem key={item.id} item={item} />
+            ))}
+          </Stack>
         </List>
       )}
     </Container>

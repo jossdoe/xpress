@@ -4,13 +4,14 @@ import AddLink from 'components/Sidebar/AddLink';
 import AddTurbo from 'components/Sidebar/AddTurbo';
 import Scraper from 'components/Sidebar/Scraper';
 import { NavLeft, Header, Content, Hamburger } from './styles';
+import { FiPlusCircle, FiChevronLeft } from 'react-icons/fi';
 
 const Sidebar = () => {
   const { settings } = useContext(MetaContext);
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [activeView, setActiveView] = useState<
     'addTurbo' | 'addLink' | 'scraper'
-  >('scraper');
+  >('addTurbo');
 
   return (
     <NavLeft isExpanded={isExpanded}>
@@ -38,7 +39,11 @@ const Sidebar = () => {
           )}
         </ul>
         <Hamburger onClick={() => setIsExpanded(!isExpanded)}>
-          <i className={isExpanded ? 'fas fa-angle-left' : 'fas fa-bars'} />
+          {isExpanded ? (
+            <FiChevronLeft style={{ marginTop: '6px' }} />
+          ) : (
+            <FiPlusCircle style={{ marginTop: '6px' }} />
+          )}
         </Hamburger>
       </Header>
       <Content isExpanded={isExpanded}>

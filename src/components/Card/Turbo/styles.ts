@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
 export const Item = styled.li`
-  background-color: #f2f2f2;
+  background-color: #fdfdfd;
+  box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
   border-radius: 5px;
   line-height: 1.5;
-  margin-bottom: 10px;
   padding: 10px;
   position: relative;
+  overflow: hidden;
+
+  &:hover > aside {
+    opacity: 0.7;
+  }
 `;
 
 export const Headline = styled.div`
@@ -23,23 +28,56 @@ export const Location = styled.div`
   opacity: 0.7;
 `;
 
-export const Button = styled.div<{ done: boolean }>`
-  background-color: ${props => (props.done ? '#00E676' : '#fdfdfd')};
-  border: ${props => (props.done ? 'solid 2px #00E676' : 'solid 2px #ff4136')};
-  border-radius: 3px;
-  color: ${props => (props.done ? '#666' : '#ff4136')};
-  cursor: pointer;
-  display: inline-block;
-  font-size: 0.6rem;
-  margin-top: 5px;
-  margin-right: 5px;
-  padding: 3px 5px;
-  user-select: none;
+export const StatusStack = styled.div`
+  display: flex;
+  font-size: 0.7rem;
+  margin: 0 -10px -10px;
 `;
 
-export const EditButton = styled.div`
-  position: absolute;
-  top: 9px;
-  right: 13px;
+export const StatusItem = styled.div<{ done: boolean }>`
+  background-color: ${props => (props.done ? '#333' : 'transparent')};
+  color: ${props => (props.done ? '#fafafa' : 'inherit')};
+  flex: 1;
+  padding: 5px 10px;
   cursor: pointer;
+  user-select: none;
+  transition: all 0.1s;
+
+  span {
+    opacity: 0.7;
+    transition: all 0.1s;
+  }
+
+  &:hover {
+    background-color: ${props => (props.done ? '#444' : '#f7f7f7')};
+
+    span {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    background-color: ${props => (props.done ? '#444' : '#f1f1f1')};
+
+    span {
+      opacity: ${props => (props.done ? '0.5' : '1')};
+    }
+  }
+`;
+
+export const EditButton = styled.aside`
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.1s;
+
+  &:hover {
+    opacity: 1 !important;
+  }
+
+  &:active {
+    opacity: 0.5 !important;
+  }
 `;

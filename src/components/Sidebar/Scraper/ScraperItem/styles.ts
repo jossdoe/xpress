@@ -4,10 +4,14 @@ export const Item = styled.li<{ borderLeft: string }>`
   background-color: #fdfdfd;
   border-left: solid 6px ${props => props.borderLeft};
   border-radius: 3px;
-  box-shadow: 1px 2px 3px #00000011, 1px 2px 5px #00000011;
-  margin-bottom: 10px;
+  box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
   padding: 10px;
   position: relative;
+  transition: all 0.2s;
+
+  &:hover {
+    box-shadow: 1px 2px 3px #0000001a, 1px 2px 9px #0000001a;
+  }
 `;
 
 export const Time = styled.div`
@@ -41,13 +45,20 @@ export const Headline = styled.div`
 `;
 
 export const AddButton = styled.button`
-  background-color: #777;
   border: none;
-  border-radius: 3px;
-  color: #ccc;
+  background: transparent;
+  color: #bbb;
   cursor: pointer;
-  padding: 3px 4px;
   position: absolute;
   top: 10px;
   right: 10px;
+  font-size: 2rem;
+
+  &:hover {
+    color: #999;
+  }
+
+  &:active {
+    color: #777;
+  }
 `;

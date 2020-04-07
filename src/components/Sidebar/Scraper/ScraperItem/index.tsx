@@ -4,6 +4,7 @@ import { defaultStyle, styles } from 'config/scraperstyles.config';
 import { MetaContext } from 'context/MetaContext';
 import { ModalContext } from 'context/ModalContext';
 import { Item, Location, Headline, Time, Kicker, AddButton } from './styles';
+import { FiPlusCircle } from 'react-icons/fi';
 
 type PropsType = {
   item: ScraperItemType;
@@ -46,7 +47,7 @@ const ScraperItem: React.FC<PropsType> = props => {
   return (
     <Item borderLeft={colors.borderLeft}>
       <AddButton onClick={() => showAddEntryModal(props.item)}>
-        <i className="fas fa-plus" />
+        <FiPlusCircle />
       </AddButton>
       <Time>{decodeHtml(time)}</Time>
       <Location

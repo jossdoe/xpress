@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const CardComponent = styled.section`
-  background-color: #fdfdfd;
   border-radius: 3px;
-  box-shadow: 1px 2px 3px #0000000a, 1px 2px 9px #0000000a;
   display: inline-block;
   height: 100%;
   margin-right: 20px;
@@ -16,7 +14,7 @@ export const CardComponent = styled.section`
   }
 
   header {
-    border-bottom: solid 1px #eee;
+    border-bottom: solid 1px #ddd;
     color: #ff4136;
     font-weight: 600;
     margin: 20px 20px 0;
@@ -24,8 +22,9 @@ export const CardComponent = styled.section`
   }
 
   ul {
-    background-color: #fdfdfd;
     list-style: none;
     padding: 20px;
+    height: calc(100% - 50px);
+    overflow: auto;
   }
 `;

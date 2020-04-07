@@ -7,7 +7,7 @@ import {
   ModalFormDataType,
   ScraperItemType,
   LinkDatabaseType,
-  ModalFormDataDummy
+  ModalFormDataDummy,
 } from 'types';
 
 type ContextType = {
@@ -25,16 +25,16 @@ export const ModalContext = createContext<ContextType>({
   showEditTurboModal: (data: LinkDatabaseType) => {},
   hideModal: () => {},
   modalType: 'entry',
-  formData: ModalFormDataDummy // Located in types-file because of space
+  formData: ModalFormDataDummy, // Located in types-file because of space
 });
 
-const ModalContextProvider: React.FC = props => {
+const ModalContextProvider: React.FC = (props) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   // 'modalType' can either be 'entry' or 'turbo' depending on the
   // content the user wants to edit. This directly controls the architecture
   // of the component in 'components/Modal/Modal.js'.
-  const [modalType, setModalType] = useState<ContextType['modalType']>('entry');
+  const [modalType, setModalType] = useState<ContextType['modalType']>('turbo');
 
   // States for Form Data in Modal
   const [firebaseId, setFirebaseId] = useState('');
@@ -72,7 +72,7 @@ const ModalContextProvider: React.FC = props => {
     switchValue,
     setSwitchValue,
     listArray,
-    setListArray
+    setListArray,
   };
 
   const resetModalFields = () => {
@@ -142,7 +142,7 @@ const ModalContextProvider: React.FC = props => {
         showEditTurboModal,
         hideModal,
         modalType,
-        formData
+        formData,
       }}
     >
       {props.children}

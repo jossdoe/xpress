@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { LinkDatabaseType } from 'types';
 import { FirebaseContext } from 'context/FirebaseContext';
 import { Item, ActionButton, Description } from './styles';
+import { FiCircle, FiCheckCircle } from 'react-icons/fi';
 
 type PropsType = {
   item: LinkDatabaseType;
@@ -13,12 +14,21 @@ const CardItem: React.FC<PropsType> = props => {
   return (
     <Item isPosted={props.item.isPosted}>
       <ActionButton
+        isPosted={props.item.isPosted}
         onClick={() => setIsPosted(props.item.id, !props.item.isPosted)}
       >
-        {props.item.isPosted && <i className="fas fa-check" />}
-        {!props.item.isPosted && <i className="far fa-square" />}
+        {props.item.isPosted && (
+          <div>
+            <FiCheckCircle style={{ verticalAlign: 'middle' }} />
+          </div>
+        )}
+        {!props.item.isPosted && (
+          <div>
+            <FiCircle style={{ verticalAlign: 'middle' }} />
+          </div>
+        )}
       </ActionButton>
-      <Description>
+      <Description isPosted={props.item.isPosted}>
         <a
           href={props.item.url || '#'}
           target="_blank"

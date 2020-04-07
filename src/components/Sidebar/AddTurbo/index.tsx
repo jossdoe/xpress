@@ -1,14 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { FirebaseContext } from 'context/FirebaseContext';
 import { MetaContext } from 'context/MetaContext';
-import useTextInput from 'forms/useTextInput';
-import {
-  Form,
-  RadioSection,
-  FieldSection,
-  SubmitSection,
-  QuestionSection
-} from './styles';
+import Stack from 'components/layout/Stack';
+import InputLabel from 'components/forms/InputLabel';
+import CheckboxTag from 'components/forms/CheckboxTag';
+import SubmitButton from 'components/forms/SubmitButton';
+import TextInput from 'components/forms/TextInput';
+import TurboRadioGroup from 'components/forms/TurboRadioGroup';
 
 const AddTurbo = () => {
   const { postEntry } = useContext(FirebaseContext);
@@ -51,89 +49,90 @@ const AddTurbo = () => {
   };
 
   return (
-    <Form>
-      <FieldSection>
-        {useTextInput('title', 'Headline', titleValue, setTitleValue)}
-        {useTextInput('topic', 'Topic', topicValue, setTopicValue)}
-        {useTextInput('folder', 'Folder', folderValue, setFolderValue)}
-        {useTextInput('url', 'Link', urlValue, setUrlValue)}
-      </FieldSection>
-      <RadioSection>
-        {lists.map((list, index) => {
-          return (
-            <React.Fragment key={index}>
-              <input
-                type="radio"
-                name="lists"
-                value={list.title}
-                id={list.title}
-                checked={activeList === list.title}
-                onChange={e => setActiveList(e.target.value)}
-              />
-              <label htmlFor={list.title}>{list.title}</label>
-            </React.Fragment>
-          );
-        })}
-      </RadioSection>
-      <QuestionSection>
-        <li>
-          <div>Redacted?</div>
-          <aside>
-            <input
-              type="checkbox"
-              name="isReady"
-              value="isReady"
-              id="isReady"
-              checked={isReady}
-              onChange={() => setIsReady(!isReady)}
-            />
-            <label htmlFor="isReady">
-              <i className={isReady ? 'fas fa-check' : 'fas fa-times'} />
-            </label>
-          </aside>
-        </li>
-        <li>
-          <div>Online?</div>
-          <aside>
-            <input
-              type="checkbox"
-              name="isOnline"
-              value="isOnline"
-              id="isOnline"
-              checked={isOnline}
-              onChange={() => setIsOnline(!isOnline)}
-            />
-            <label htmlFor="isOnline">
-              <i className={isOnline ? 'fas fa-check' : 'fas fa-times'} />
-            </label>
-          </aside>
-        </li>
-        <li>
-          <div>Posted?</div>
-          <aside>
-            <input
-              type="checkbox"
-              name="isPosted"
-              value="isPosted"
-              id="isPosted"
-              checked={isPosted}
-              onChange={() => setIsPosted(!isPosted)}
-            />
-            <label htmlFor="isPosted">
-              <i className={isPosted ? 'fas fa-check' : 'fas fa-times'} />
-            </label>
-          </aside>
-        </li>
-      </QuestionSection>
-      <SubmitSection>
-        <button className="submit" onClick={() => postForm()}>
-          Submit
-        </button>
-        <button className="reset" onClick={() => resetForm()}>
-          Reset
-        </button>
-      </SubmitSection>
-    </Form>
+    <div style={{ padding: 20 }}>
+      <Stack space={4} marginBottom={20}>
+        <div>
+          <InputLabel>Headline</InputLabel>
+          <TextInput
+            variant="dark"
+            type="text"
+            value={titleValue}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setTitleValue(e.currentTarget.value)
+            }
+          />
+        </div>
+        <div>
+          <InputLabel>Topic</InputLabel>
+          <TextInput
+            variant="dark"
+            type="text"
+            value={topicValue}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setTopicValue(e.currentTarget.value)
+            }
+          />
+        </div>
+        <div>
+          <InputLabel>Folder</InputLabel>
+          <TextInput
+            variant="dark"
+            type="text"
+            value={folderValue}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setFolderValue(e.currentTarget.value)
+            }
+          />
+        </div>
+        <div>
+          <InputLabel>Link</InputLabel>
+          <TextInput
+            variant="dark"
+            type="text"
+            value={urlValue}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setUrlValue(e.currentTarget.value)
+            }
+          />
+        </div>
+      </Stack>
+      <Stack space={2} marginBottom={20}>
+        <InputLabel>Choose List</InputLabel>
+        <TurboRadioGroup
+          groupName="sidebarTurboRadios"
+          lists={lists}
+          activeList={activeList}
+          setActiveList={setActiveList}
+        />
+      </Stack>
+      <Stack space={4} spaceRight={4} marginBottom={40}>
+        <InputLabel>Status Tags</InputLabel>
+        <CheckboxTag
+          labelText="Redacted"
+          name="sidebarTurboIsRedacted"
+          value="isRedacted"
+          checked={isReady}
+          changeHandler={setIsReady}
+        />
+        <CheckboxTag
+          labelText="Online"
+          name="sidebarTurboIsOnline"
+          value="isOnline"
+          checked={isOnline}
+          changeHandler={setIsOnline}
+        />
+        <CheckboxTag
+          labelText="Posted"
+          name="sidebarTurboIsPosted"
+          value="isPosted"
+          checked={isPosted}
+          changeHandler={setIsPosted}
+        />
+      </Stack>
+      <Stack align="right">
+        <SubmitButton onClick={() => postForm()}>Save</SubmitButton>
+      </Stack>
+    </div>
   );
 };
 

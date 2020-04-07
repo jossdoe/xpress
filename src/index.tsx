@@ -5,8 +5,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 import FirebaseContextProvider from 'context/FirebaseContext';
 import MetaContextProvider from 'context/MetaContext';
 import ModalContextProvider from 'context/ModalContext';
@@ -24,15 +25,17 @@ import { Main } from './styles/App';
 import 'styles/index.css';
 
 // This defines one general Context Provider that bundles up all other Contexts
-const ContextProviders: React.FC = props => {
+const ContextProviders: React.FC = (props) => {
   return (
-    <MetaContextProvider>
-      <FirebaseContextProvider>
-        <ModalContextProvider>
-          <ScraperContextProvider>{props.children}</ScraperContextProvider>
-        </ModalContextProvider>
-      </FirebaseContextProvider>
-    </MetaContextProvider>
+    <ToastProvider autoDismissTimeout={3000} placement="bottom-right">
+      <MetaContextProvider>
+        <FirebaseContextProvider>
+          <ModalContextProvider>
+            <ScraperContextProvider>{props.children}</ScraperContextProvider>
+          </ModalContextProvider>
+        </FirebaseContextProvider>
+      </MetaContextProvider>
+    </ToastProvider>
   );
 };
 
