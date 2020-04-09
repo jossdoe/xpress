@@ -139,6 +139,21 @@ On to setting up Firebase:
 
 - Create a new Firestore for Xpress. (If it asks you about security rules, set it to production mode, not test mode.)
 - Inside your Firestore, add a collection named 'links'. (It will force you to create an empty document, that's fine.)
+
+- Navigate to the security rules tab of your Firestore and replace the contents with the following:
+
+```
+// Allow read/write access on all documents to any user signed in to the application
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth.uid != null;
+    }
+  }
+}
+```
+
 - Switch to the authentication tab of Firebase. Enable login with mail and password. Create one or more user/s for Xpress.
 - Lastly, populate `firebase.config.ts` with your credentials (you'll find them inside your Firebase dashboard) in the following way:
 
