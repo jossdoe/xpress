@@ -122,9 +122,11 @@ const Modal = () => {
         {modalType === 'entry' && <EntryForm />}
         <Stack spaceRight={4} style={{ textAlign: 'right' }}>
           <SubmitButton onClick={() => submitModal()}>Save</SubmitButton>
-          <DeleteButton onClick={() => setIsVisibleDeletion(true)}>
-            Delete
-          </DeleteButton>
+          {modalType === 'turbo' && (
+            <DeleteButton onClick={() => setIsVisibleDeletion(true)}>
+              Delete
+            </DeleteButton>
+          )}
         </Stack>
         <CloseButton onClick={() => hideModal()}>
           <IoIosCloseCircle />
