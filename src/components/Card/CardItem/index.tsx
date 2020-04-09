@@ -8,8 +8,17 @@ type PropsType = {
   item: LinkDatabaseType;
 };
 
-const CardItem: React.FC<PropsType> = props => {
+const CardItem: React.FC<PropsType> = (props) => {
   const { setIsPosted } = useContext(FirebaseContext);
+
+  // This is a little helper function to decode HTML characters that would
+  // otherwise not be displayed properly. We're basically creating a textarea
+  // without rendering it to the user, then using copy and paste.
+  const decodeHtml = (html: string) => {
+    var txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  };
 
   return (
     <Item isPosted={props.item.isPosted}>
@@ -34,7 +43,7 @@ const CardItem: React.FC<PropsType> = props => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {props.item.title}
+          {decodeHtml(props.item.title)}
         </a>
       </Description>
     </Item>
