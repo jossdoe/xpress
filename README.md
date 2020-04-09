@@ -50,8 +50,8 @@ export const settings: ListSettings = {
 // Keep in mind that it was designed as one list per newspaper-site
 export const lists: Array<LocalListType> = [
   {
-    // The title of the newspaper/list, keep it as short as possible - preferrably three letters
-    title: 'XMP',
+    // The title of the newspaper/list, keep it short & unique
+    title: 'Example List',
 
     // Always keep the type 'local'
     type: 'local',
@@ -59,12 +59,12 @@ export const lists: Array<LocalListType> = [
     // The frontpage of your website, this is only used in the scraper-section
     frontpage: 'https://www.example.com',
 
-    // The URL of your scraping API
+    // The URL of your scraping API that returns data as JSON
     // If you don't use scraping, just leave it as an empty string
     scraperUrl: ''
   },
   {
-    title: 'ABC',
+    title: 'Secound List',
     type: 'local',
     frontpage: 'https://www.example.com',
     scraperUrl: ''
@@ -73,7 +73,7 @@ export const lists: Array<LocalListType> = [
 
 // Globals are scrapers that are not assigned to a specific list
 // You can add or remove entries as you like
-// If you don't use global scrapers, just keep it an empty array – don't remove it
+// If you don't use global scrapers, just keep it as an empty array – don't remove it
 export const globals: Array<GlobalListType> = [
   {
     // The title of your scraper
@@ -97,6 +97,7 @@ export const globals: Array<GlobalListType> = [
 
 ```javascript
 // In this file, we define the styling of the scrapers
+// If you don't use scraping, just copy this code into the file and leave it alone
 import { DefaultStyleType, StyleType } from 'types';
 
 // This is the default style of scraper elements
@@ -136,10 +137,10 @@ export const styles: Array<StyleType> = [
 
 On to setting up Firebase:
 
-- Create a new Firestore for Xpress.
-- Add a collection named 'links'
-- Create a user for Xpress, so you can log in
-- Lastly, populate `firebase.config.ts` with your credentials in the following way:
+- Create a new Firestore for Xpress. (If it asks you about security rules, set it to production mode, not test mode.)
+- Inside your Firestore, add a collection named 'links'. (It will force you to create an empty document, that's fine.)
+- Switch to the authentication tab of Firebase. Enable login with mail and password. Create one or more user/s for Xpress.
+- Lastly, populate `firebase.config.ts` with your credentials (you'll find them inside your Firebase dashboard) in the following way:
 
 ### `firebase.config.ts`
 
@@ -156,7 +157,7 @@ export default {
 };
 ```
 
-- If you don't use scraping, you're done! :tada:
+- If you don't use scraping, you're done! :tada: Run `npm start` to check if everything's working fine.
 
 ### Setting up scraping
 
