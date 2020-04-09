@@ -2,6 +2,8 @@
 
 ![Xpress Screenshot](http://cdn.gitpush.it/xpress2.png)
 
+**DEMO: <https://xpress-demo.now.sh>**
+
 I developed Xpress to keep track of the workflow in a digital newsroom that controls the sites and social media profiles of several daily newspapers. We were often faced with the problem of severe multitasking, handling several different sources of articles that needed to be distributed to several different channels. At the core of our work we needed to keep track of three things:
 
 - :newspaper: Articles that needed to be placed on the frontpages of our sites throughout the day
@@ -153,6 +155,8 @@ service cloud.firestore {
   }
 }
 ```
+
+(It might take a few minutes for this to take effect.)
 
 - Switch to the authentication tab of Firebase. Enable login with mail and password. Create one or more user/s for Xpress.
 - Lastly, populate `firebase.config.ts` with your credentials (you'll find them inside your Firebase dashboard) in the following way:
