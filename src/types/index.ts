@@ -50,6 +50,11 @@ export type ListSettings = {
   enableScraper: boolean;
   enableScraperColors: boolean;
   excludeFromScraper: string;
+  demo?: {
+    isEnabled: boolean;
+    user?: string;
+    password?: string;
+  };
 };
 
 export type LocalListType = {

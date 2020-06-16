@@ -9,9 +9,11 @@ import {
   LinkDatabaseType,
   LinkPostType,
   LinkUpdateType,
-  isLinkDatabaseType,
+  isLinkDatabaseType
 } from 'types';
 import { useToasts } from 'react-toast-notifications';
+import { settings } from 'config/general.config';
+import { setupDemoDatabase } from 'util/demo';
 
 type ContextType = {
   isLoggedIn: boolean;
@@ -29,6 +31,7 @@ type ContextType = {
   deleteList: (list: string, mode: string) => void;
   deleteEntry: (id: string) => void;
   editTurbo: (id: string, changes: LinkUpdateType) => void;
+  isLoadingDemo: boolean;
 };
 
 export const FirebaseContext = createContext<ContextType>({
@@ -47,6 +50,7 @@ export const FirebaseContext = createContext<ContextType>({
   deleteList: (id, mode) => {},
   deleteEntry: (id) => {},
   editTurbo: (id, changes) => {},
+  isLoadingDemo: false
 });
 
 // Connect to DB
@@ -60,6 +64,9 @@ const FirebaseContextProvider: React.FC = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loginIsInvalid, setLoginIsInvalid] = useState<boolean>(false);
   const [loginIsLoading, setLoginIsLoading] = useState<boolean>(false);
+
+  // Demo mode: Boolean for loading screen
+  const [isLoadingDemo, setIsLoadingDemo] = useState<boolean>(false);
 
   // States to store the Firestore data entries in, one per view
   const [socialEntries, setSocialEntries] = useState<Array<LinkDatabaseType>>(
@@ -83,9 +90,17 @@ const FirebaseContextProvider: React.FC = (props) => {
         firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
-          .then((res) => {
-            if (res.user) setIsLoggedIn(true);
-            setLoginIsLoading(false);
+          .then(async (res) => {
+            if (settings.demo?.isEnabled)
+              await setupDemoDatabase(setIsLoadingDemo, db, firebase, addToast);
+            if (res.user) {
+              setIsLoggedIn(true);
+              setLoginIsLoading(false);
+            } else {
+              setIsLoggedIn(false);
+              setLoginIsInvalid(true);
+              setLoginIsLoading(false);
+            }
           })
           .catch((e) => {
             setIsLoggedIn(false);
@@ -103,13 +118,13 @@ const FirebaseContextProvider: React.FC = (props) => {
         setIsLoggedIn(false);
         addToast('Signed out!', {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: true
         });
       })
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   }
@@ -168,7 +183,7 @@ const FirebaseContextProvider: React.FC = (props) => {
     folder,
     isReady,
     isOnline,
-    isPosted,
+    isPosted
   }: LinkPostType) => {
     // We construct the object depending on whether all arguments are provided.
     // This is where we can define standard values in case of "undefined"- or "null"-values.
@@ -181,7 +196,7 @@ const FirebaseContextProvider: React.FC = (props) => {
       folder: folder || '',
       isReady,
       isOnline,
-      isPosted,
+      isPosted
     };
 
     // We need to re-parse the Objext to make sure it's a pure Object.
@@ -193,18 +208,18 @@ const FirebaseContextProvider: React.FC = (props) => {
         // We add the timestamp-property after parsing, because it's a serverside function
         // of Firestore and can therefore only be run and parsed on the server.
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        ...parsedObject,
+        ...parsedObject
       })
       .then(() =>
         addToast('Saved!', {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: true
         })
       )
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   };
@@ -214,12 +229,12 @@ const FirebaseContextProvider: React.FC = (props) => {
 
     docRef
       .update({
-        isReady: value,
+        isReady: value
       })
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   };
@@ -229,12 +244,12 @@ const FirebaseContextProvider: React.FC = (props) => {
 
     docRef
       .update({
-        isOnline: value,
+        isOnline: value
       })
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   };
@@ -244,12 +259,12 @@ const FirebaseContextProvider: React.FC = (props) => {
 
     docRef
       .update({
-        isPosted: value,
+        isPosted: value
       })
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   };
@@ -274,13 +289,13 @@ const FirebaseContextProvider: React.FC = (props) => {
       .then(() =>
         addToast('List deleted!', {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: true
         })
       )
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   };
@@ -292,13 +307,13 @@ const FirebaseContextProvider: React.FC = (props) => {
       .then(() =>
         addToast('Item deleted!', {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: true
         })
       )
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   };
@@ -313,13 +328,13 @@ const FirebaseContextProvider: React.FC = (props) => {
       .then(() =>
         addToast('Changes saved!', {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: true
         })
       )
       .catch((error) =>
         addToast('Error: ' + error, {
           appearance: 'error',
-          autoDismiss: false,
+          autoDismiss: false
         })
       );
   };
@@ -342,6 +357,7 @@ const FirebaseContextProvider: React.FC = (props) => {
         deleteList,
         deleteEntry,
         editTurbo,
+        isLoadingDemo
       }}
     >
       {props.children}

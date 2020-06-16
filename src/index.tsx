@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  Redirect
 } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
 import FirebaseContextProvider from 'context/FirebaseContext';
@@ -21,6 +21,8 @@ import Navbar from 'components/Navbar';
 import Sidebar from 'components/Sidebar';
 import SocialView from 'pages/SocialView';
 import TurbosView from 'pages/TurbosView';
+import { settings } from 'config/general.config';
+import { LoadingScreen } from 'util/demo';
 import { Main } from './styles/App';
 import 'styles/index.css';
 
@@ -40,7 +42,7 @@ const ContextProviders: React.FC = (props) => {
 };
 
 const App = () => {
-  const { isLoggedIn } = useContext(FirebaseContext);
+  const { isLoggedIn, isLoadingDemo } = useContext(FirebaseContext);
 
   return (
     <Router>
@@ -72,6 +74,7 @@ const App = () => {
             <Error404 />
           </Route>
         </Switch>
+        {settings.demo?.isEnabled && <LoadingScreen active={isLoadingDemo} />}
       </Main>
       <Modal />
     </Router>
