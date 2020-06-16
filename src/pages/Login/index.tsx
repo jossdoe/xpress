@@ -1,6 +1,7 @@
 // This component only consumes all the login-data. The actual
 // logic can be found inside 'context/FirebaseContext.js'.
 import React, { useContext, useState } from 'react';
+import { settings } from 'config/general.config';
 import { FirebaseContext } from 'context/FirebaseContext';
 import { Wrapper, ErrorNotice, Spinner } from './styles';
 import Stack from 'components/layout/Stack';
@@ -14,8 +15,15 @@ import { IoMdCloseCircle } from 'react-icons/io';
 const Login = () => {
   const { logIn, loginIsInvalid, loginIsLoading } = useContext(FirebaseContext);
 
-  const [inputUser, setInputUser] = useState<string>('');
-  const [inputPassword, setInputPassword] = useState<string>('');
+  // Check if App is in Demo mode and has demo credentials provided – use them if true
+  const initialUser =
+    settings.demo?.isEnabled && settings.demo.user ? settings.demo.user : '';
+  const initialPassword =
+    settings.demo?.isEnabled && settings.demo.password
+      ? settings.demo.password
+      : '';
+  const [inputUser, setInputUser] = useState<string>(initialUser);
+  const [inputPassword, setInputPassword] = useState<string>(initialPassword);
 
   return (
     <Wrapper>
